@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>(주)투어메이커 - 스마트 회사소개서</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .hero-bg {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') center/cover;
+            opacity: 0.1;
+            mix-blend-mode: overlay;
+        }
+        .card-shadow {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-shadow:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        .tab-btn.active {
+            background-color: #2563eb;
+            color: white;
+            border-color: #2563eb;
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Hide scrollbar for category menu */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .gradient-border {
+            position: relative;
+            background: #fff;
+            padding: 3px;
+            border-radius: 1rem;
+        }
+        .gradient-border::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 1rem;
+            padding: 2px;
+            background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+        .dotted-line {
+            background-image: linear-gradient(to right, #94a3b8 33%, rgba(255,255,255,0) 0%);
+            background-position: bottom;
+            background-size: 8px 1px;
+            background-repeat: repeat-x;
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <!-- Navigation -->
+    <nav class="bg-white/90 backdrop-blur-md fixed w-full z-50 border-b border-slate-100">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="#" class="flex items-center gap-2">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHfgIX70O5k6Anuo0UgALIdaG9jSga9auHu3uyz0uEirylGPAJnjN_qQbvEGMUvPqUQf_g9FMNUHRxlDcUBf4vZ3Mpy4TnA9WxbmzWYK11gt2zuy_Irl4wctNFjcjLyPo0GPXV792o_J7L9guRMuDfeC1gy7USwywjYbECZgzcsHybuGRRAXAnO1eNmP8/s320/logo.png" alt="투어메이커 로고" class="h-8 md:h-10">
+                <span class="font-bold text-lg md:text-xl text-slate-900 hidden xs:block">(주)투어메이커</span>
+            </a>
+            <a href="tel:010-9443-7881" class="bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg hover:bg-blue-700 transition flex items-center gap-2">
+                <i class="fas fa-phone-alt"></i> 상담 문의
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-bg text-white pt-24 pb-16 px-4 md:pt-32 md:pb-24">
+        <div class="max-w-4xl mx-auto text-center animate-fade-in">
+            <div class="inline-block bg-blue-500/20 border border-blue-400/30 rounded-full px-4 py-1 mb-4 text-blue-300 text-xs md:text-sm font-semibold tracking-wider">
+                SMART TOUR SOLUTION
+            </div>
+            <h1 class="text-3xl md:text-5xl font-black mb-4 leading-tight">
+                여행, <span class="text-blue-400">데이터</span>를 만나<br>혁신이 되다
+            </h1>
+            <p class="text-slate-300 text-sm md:text-lg max-w-2xl mx-auto leading-relaxed mb-8">
+                AI 기술 연수부터 지역 특화 벤치마킹까지,<br>
+                (주)투어메이커가 공공/교육기관의 목적 달성을 위한 최적의 솔루션을 제공합니다.
+            </p>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-3xl mx-auto text-center mt-8">
+                <div class="bg-white/10 backdrop-blur-sm rounded-lg p-3 border border-white/10">
+                    <div class="text-2xl font-bold text-blue-400">50+</div>
+                    <div class="text-xs text-slate-300">공공/대학 용역 수행</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-sm rounded-lg p-3 border border-white/10">
+                    <div class="text-2xl font-bold text-blue-400">Expert</div>
+                    <div class="text-xs text-slate-300">데이터기반 기획</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-sm rounded-lg p-3 border border-white/10">
+                    <div class="text-2xl font-bold text-blue-400">Local</div>
+                    <div class="text-xs text-slate-300">지역 밀착 네트워크</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-sm rounded-lg p-3 border border-white/10">
+                    <div class="text-2xl font-bold text-blue-400">Global</div>
+                    <div class="text-xs text-slate-300">해외 기술 연수</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Company Info & Team -->
+    <section class="py-12 px-4 max-w-4xl mx-auto">
+        <div class="bg-white rounded-2xl p-6 md:p-8 card-shadow border-l-4 border-blue-600 mb-8">
+            <div class="flex flex-col md:flex-row gap-6 items-start">
+                <div class="flex-1">
+                    <h2 class="text-xl font-bold text-slate-900 mb-2 flex items-center gap-2">
+                        <i class="fas fa-user-tie text-blue-600"></i> CEO Message
+                    </h2>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        "기존 여행사가 '감성'을 팔 때, 투어메이커는 '전문성'과 '신뢰'를 제안합니다."
+                    </p>
+                    <p class="text-slate-700 text-sm md:text-base leading-relaxed">
+                        안녕하세요, 대표이사 <strong>이재명</strong>입니다. 저는 강원대학교 데이터사이언스 대학원 과정을 통해 습득한 <strong>데이터 분석 역량</strong>을 여행업에 접목했습니다. 단순한 관광이 아닌, <span class="bg-yellow-100 px-1 font-semibold">기관의 목적(벤치마킹, 교육, 연수)을 정확히 달성하는 성과 중심의 기획</span>을 약속드립니다.
+                    </p>
+                </div>
+                <div class="w-full md:w-1/3 bg-slate-50 rounded-xl p-4 text-xs space-y-2 border border-slate-100">
+                    <div class="font-bold text-slate-900 mb-2 border-b pb-1">Company Profile</div>
+                    <div class="flex justify-between">
+                        <span class="text-slate-500">설립일</span>
+                        <span class="font-medium">2024.04.23</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-slate-500">본사</span>
+                        <span class="font-medium">강원도 정선군</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-slate-500">지사</span>
+                        <span class="font-medium">강원도 태백시</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key People -->
+        <div class="grid md:grid-cols-3 gap-4 mb-12">
+            <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex items-center gap-4">
+                <div class="bg-blue-100 text-blue-600 w-12 h-12 rounded-full flex items-center justify-center text-lg font-bold">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div>
+                    <p class="text-xs text-slate-500 font-semibold">대표이사</p>
+                    <p class="font-bold text-slate-800">이재명</p>
+                    <a href="tel:010-9443-7881" class="text-blue-600 text-sm font-medium hover:underline">010-9443-7881</a>
+                </div>
+            </div>
+            <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex items-center gap-4">
+                <div class="bg-green-100 text-green-600 w-12 h-12 rounded-full flex items-center justify-center text-lg font-bold">
+                    <i class="fas fa-user-gear"></i>
+                </div>
+                <div>
+                    <p class="text-xs text-slate-500 font-semibold">실장 (총괄)</p>
+                    <p class="font-bold text-slate-800">허나연</p>
+                    <a href="tel:010-5066-0433" class="text-blue-600 text-sm font-medium hover:underline">010-5066-0433</a>
+                </div>
+            </div>
+            <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex items-center gap-4">
+                <div class="bg-purple-100 text-purple-600 w-12 h-12 rounded-full flex items-center justify-center text-lg font-bold">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <div>
+                    <p class="text-xs text-slate-500 font-semibold">이사 (대외협력)</p>
+                    <p class="font-bold text-slate-800">조 혁</p>
+                    <a href="tel:010-4249-4026" class="text-blue-600 text-sm font-medium hover:underline">010-4249-4026</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- NEW: Collaboration System -->
+        <div class="text-center mb-6">
+            <span class="text-blue-600 font-bold text-sm tracking-widest uppercase">One-Team Operation</span>
+            <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mt-2">유기적 협업 시스템</h2>
+            <p class="text-slate-500 text-sm mt-2 max-w-xl mx-auto">
+                대표이사의 총괄 기획 하에 내부 전문 인력과 현지 파트너사가 하나의 팀처럼 움직입니다.<br>
+                <span class="text-blue-600 font-semibold">단순 외주가 아닌, 검증된 파트너십으로 완벽한 행사를 보장합니다.</span>
+            </p>
+        </div>
+        
+        <div class="relative bg-slate-50 rounded-2xl p-8 border border-slate-200">
+            <!-- Diagram Layout for Mobile/Desktop -->
+            <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-12 relative z-10">
+                
+                <!-- Center: CEO -->
+                <div class="bg-white p-6 rounded-xl shadow-lg border-2 border-blue-500 text-center w-full md:w-48 relative z-20">
+                    <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full">Control Tower</div>
+                    <i class="fas fa-crown text-3xl text-blue-500 mb-3"></i>
+                    <h3 class="font-bold text-slate-900">대표이사 (PM)</h3>
+                    <p class="text-xs text-slate-500 mt-2">전체 기획 및 총괄<br>위기 관리/의사결정</p>
+                </div>
+
+                <!-- Connectors (Hidden on mobile, visible on desktop) -->
+                <div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 border-t-2 border-dashed border-slate-300 z-0"></div>
+
+                <!-- Left: Internal Team -->
+                <div class="bg-white p-5 rounded-xl shadow-md border border-slate-200 text-center w-full md:w-44 z-10">
+                    <i class="fas fa-users-cog text-2xl text-slate-400 mb-2"></i>
+                    <h3 class="font-bold text-slate-700 text-sm">내부 전담팀</h3>
+                    <p class="text-xs text-slate-400 mt-1">행정/예약/정산<br>고객 소통 담당</p>
+                </div>
+
+                <!-- Right: Local Partners -->
+                <div class="bg-white p-5 rounded-xl shadow-md border border-slate-200 text-center w-full md:w-44 z-10">
+                    <i class="fas fa-map-marked-alt text-2xl text-slate-400 mb-2"></i>
+                    <h3 class="font-bold text-slate-700 text-sm">현지 파트너사</h3>
+                    <p class="text-xs text-slate-400 mt-1">현장 운영/가이드<br>비상 대응 협조</p>
+                </div>
+            </div>
+            
+            <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4 text-center text-xs text-slate-500">
+                <div class="bg-white px-3 py-2 rounded-lg border border-slate-100">🤝 10년 이상 협력</div>
+                <div class="bg-white px-3 py-2 rounded-lg border border-slate-100">⚡ 24시간 핫라인</div>
+                <div class="bg-white px-3 py-2 rounded-lg border border-slate-100">🛡️ 안전 매뉴얼 공유</div>
+                <div class="bg-white px-3 py-2 rounded-lg border border-slate-100">📊 사후 피드백 반영</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Tourmaker -->
+    <section class="bg-slate-50 py-12 px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-10">
+                <span class="text-blue-600 font-bold text-sm tracking-widest uppercase">Competitiveness</span>
+                <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mt-2">왜 <span class="text-blue-600">투어메이커</span>인가요?</h2>
+                <p class="text-slate-500 text-sm mt-2">관공서와 교육기관이 믿고 맡기는 3가지 이유</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="bg-white p-6 rounded-xl card-shadow text-center group hover:bg-blue-600 transition-colors duration-300">
+                    <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl group-hover:bg-white group-hover:text-blue-600 transition-colors">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2 group-hover:text-white">압도적 실행력</h3>
+                    <p class="text-slate-500 text-sm group-hover:text-blue-100">
+                        법인 설립 1년 내 50건 이상의<br>공공/대학 용역 완수.<br>복잡한 행정 절차 완벽 지원.
+                    </p>
+                </div>
+                <!-- Card 2 -->
+                <div class="bg-white p-6 rounded-xl card-shadow text-center group hover:bg-blue-600 transition-colors duration-300">
+                    <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl group-hover:bg-white group-hover:text-blue-600 transition-colors">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2 group-hover:text-white">데이터 기반 기획</h3>
+                    <p class="text-slate-500 text-sm group-hover:text-blue-100">
+                        단순 패키지가 아닌<br>데이터/AI 연수, 도시재생 등<br>특수 목적(SIT) 전문 기획.
+                    </p>
+                </div>
+                <!-- Card 3 -->
+                <div class="bg-white p-6 rounded-xl card-shadow text-center group hover:bg-blue-600 transition-colors duration-300">
+                    <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl group-hover:bg-white group-hover:text-blue-600 transition-colors">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2 group-hover:text-white">지역 전문성</h3>
+                    <p class="text-slate-500 text-sm group-hover:text-blue-100">
+                        강원랜드, 정선군청 등<br>탄탄한 로컬 네트워크와<br>현지 파트너 협업 노하우.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Strategic Highlight (AI Program) -->
+    <section class="py-12 px-4 max-w-4xl mx-auto">
+        <div class="gradient-border">
+            <div class="bg-white rounded-2xl p-6 md:p-10 relative overflow-hidden">
+                <div class="absolute top-0 right-0 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">Strategic Focus</div>
+                <div class="flex flex-col md:flex-row gap-8 items-center">
+                    <div class="md:w-1/2">
+                        <span class="text-blue-600 font-bold text-sm tracking-wide mb-2 block">관공서/대학 타겟 특화 상품</span>
+                        <h2 class="text-2xl md:text-3xl font-black text-slate-900 mb-4 leading-tight">
+                            첨단소재·나노융합<br>글로벌 기술 연수
+                        </h2>
+                        <p class="text-slate-600 mb-6 text-sm leading-relaxed">
+                            단순 견학을 넘어선 <strong>실무형 기술 교육 및 프로젝트 수행</strong> 프로그램입니다. 강원대학교 등 주요 대학과 협업하여 검증된 커리큘럼과 높은 완성도를 자랑합니다.
+                        </p>
+                        <ul class="space-y-2 mb-6">
+                            <li class="flex items-center gap-2 text-sm text-slate-700">
+                                <i class="fas fa-check-circle text-green-500"></i> 현지 대학/기업 연계 심화 세션
+                            </li>
+                            <li class="flex items-center gap-2 text-sm text-slate-700">
+                                <i class="fas fa-check-circle text-green-500"></i> 데이터 분석 및 실습 워크숍
+                            </li>
+                            <li class="flex items-center gap-2 text-sm text-slate-700">
+                                <i class="fas fa-check-circle text-green-500"></i> 모바일 최적화 스마트 가이드북 제공
+                            </li>
+                        </ul>
+                        <a href="https://indadady.github.io/260112_kangwon_univ/" target="_blank" class="inline-flex items-center justify-center gap-2 bg-slate-900 text-white px-6 py-3 rounded-lg font-bold hover:bg-slate-800 transition transform hover:-translate-y-1">
+                            <span>프로그램 상세 보기</span>
+                            <i class="fas fa-external-link-alt text-xs"></i>
+                        </a>
+                    </div>
+                    <div class="md:w-1/2 w-full">
+                        <div class="bg-slate-100 rounded-xl overflow-hidden shadow-lg border border-slate-200 group">
+                            <!-- Placeholder visual for the website -->
+                            <div class="aspect-video bg-slate-200 relative flex items-center justify-center overflow-hidden">
+                                <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgcTbUQUqjih9TtSGp9vAgyzP4EhWTt_cWq4uKMkf90aVNYiTL6fmUpp4rOr4yCSnhLYpOIX78Z3TCRnMXN5_RmqotGFtvghVS1B4ZN5ZyN35NyAMJ8vZciJwX9Ewdhz4um44N0_3W08gum35x7j3xjs8RS7xEG8Ri_HDMGWr4uiB_SywmEWOCxz6GggqE" alt="AI 연수 실제 활동 모습" class="object-cover w-full h-full group-hover:scale-105 transition duration-500">
+                                <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
+                                    <span class="text-white font-bold border border-white px-4 py-2 rounded-full backdrop-blur-sm">View Case Study</span>
+                                </div>
+                            </div>
+                            <div class="p-4 bg-white">
+                                <div class="text-xs text-blue-600 font-bold mb-1">BEST PRACTICE</div>
+                                <div class="font-bold text-slate-800">첨단소재·나노융합 혁신융합대학사업단<br>해외 교류 프로그램</div>
+                                <div class="text-xs text-slate-500 mt-1">실제 연수 활동 모습 (일본)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="bg-slate-50 py-12 px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-8">
+                <span class="text-blue-600 font-bold text-sm tracking-widest uppercase">Track Record</span>
+                <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mt-2">주요 수행 실적</h2>
+                <p class="text-slate-500 text-sm mt-2">분야별 전문성을 탭하여 확인하세요</p>
+            </div>
+
+            <!-- Tabs -->
+            <div class="flex overflow-x-auto scrollbar-hide gap-2 mb-8 justify-start md:justify-center pb-2">
+                <button onclick="filterPortfolio('all')" class="tab-btn active whitespace-nowrap px-5 py-2 rounded-full border border-slate-200 text-slate-600 text-sm font-medium transition-all hover:bg-slate-50">전체보기</button>
+                <button onclick="filterPortfolio('global')" class="tab-btn whitespace-nowrap px-5 py-2 rounded-full border border-slate-200 text-slate-600 text-sm font-medium transition-all hover:bg-slate-50">글로벌/기술연수</button>
+                <button onclick="filterPortfolio('public')" class="tab-btn whitespace-nowrap px-5 py-2 rounded-full border border-slate-200 text-slate-600 text-sm font-medium transition-all hover:bg-slate-50">공공/지자체</button>
+                <button onclick="filterPortfolio('school')" class="tab-btn whitespace-nowrap px-5 py-2 rounded-full border border-slate-200 text-slate-600 text-sm font-medium transition-all hover:bg-slate-50">학교/수학여행</button>
+                <button onclick="filterPortfolio('corp')" class="tab-btn whitespace-nowrap px-5 py-2 rounded-full border border-slate-200 text-slate-600 text-sm font-medium transition-all hover:bg-slate-50">기업/MICE</button>
+            </div>
+
+            <!-- Portfolio Items -->
+            <div class="space-y-4" id="portfolio-list">
+                <!-- Items generated via JS based on categories -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners -->
+    <section class="py-12 px-4 bg-white border-t border-slate-100">
+        <div class="max-w-4xl mx-auto text-center">
+            <p class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-6">Trusted Partners & Clients</p>
+            <div class="flex flex-wrap justify-center gap-4 md:gap-8 opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
+                <span class="px-4 py-2 bg-slate-100 rounded text-slate-600 font-bold">강원대학교</span>
+                <span class="px-4 py-2 bg-slate-100 rounded text-slate-600 font-bold">KAIST</span>
+                <span class="px-4 py-2 bg-slate-100 rounded text-slate-600 font-bold">강원랜드</span>
+                <span class="px-4 py-2 bg-slate-100 rounded text-slate-600 font-bold">정선군청</span>
+                <span class="px-4 py-2 bg-slate-100 rounded text-slate-600 font-bold">정선교육지원청</span>
+                <span class="px-4 py-2 bg-slate-100 rounded text-slate-600 font-bold">아주대학교</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Footer -->
+    <footer class="bg-slate-900 text-white py-12 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-2xl font-bold mb-4">여행 기획, 데이터 전문가와 상의하세요</h2>
+            <p class="text-slate-400 mb-8 text-sm">복잡한 행정 서류부터 최적의 동선 기획까지, 투어메이커가 완벽하게 수행합니다.</p>
+            
+            <div class="flex flex-col md:flex-row justify-center gap-4">
+                <a href="tel:010-9443-7881" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-bold transition flex items-center justify-center gap-3">
+                    <i class="fas fa-phone"></i> 대표 이재명: 010-9443-7881
+                </a>
+            </div>
+            
+            <div class="mt-12 pt-8 border-t border-slate-800 text-xs text-slate-500">
+                <p>&copy; 2024-2025 Tourmaker Corp. All rights reserved.</p>
+                <p class="mt-2">강원도 정선군 정선읍 봉양3길 22-10 3층 | 사업자등록번호: 별도표기</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Data from the provided HWPK file
+        const portfolioData = [
+            // Global / Tech
+            { category: 'global', date: '2025.01', title: '데이터보안·활용 혁신융합 사업 해외(싱가포르) 기술연수', desc: '강원대, 아주대, 한양대ERICA 등 5개 대학 연합 프로그램 운영' },
+            { category: 'global', date: '2025.09', title: '강원대학교 데이터사이언스학과 일본 단기 연수', desc: '데이터사이언스, AI융합, 개인정보학과 전공 심화 연수 기획 및 운영' },
+            { category: 'global', date: '2024.10', title: 'KAIST x NYU 교환학생 한국문화체험', desc: '글로벌 명문대 학생 대상 한국 문화 체험 프로그램 기획' },
+            { category: 'global', date: '2025.08', title: '첨단소재·나노융합 혁신융합대학사업단 일본 교류', desc: '중앙대, 금오공대 등 참여 대학 기술 교류 프로그램' },
+            { category: 'global', date: '2024.07', title: '강원대 지역지능화혁신 인재양성사업 상해 연수', desc: '중국 상해 스마트시티 및 IT 기업 탐방 기획' },
+
+            // Public / Government
+            { category: 'public', date: '2025.05', title: '정선군청 모범공무원 중국 선진지 견학', desc: '중국 난징, 구강 지역 행정 우수 사례 벤치마킹' },
+            { category: 'public', date: '2024.06', title: '정선군청 모범공무원 일본 북해도 연수', desc: '해외 우수 관광 자원 및 행정 사례 조사' },
+            { category: 'public', date: '2024.09', title: '정선 시설관리공단 말레이시아 선진시설 견학', desc: '쿠알라룸푸르 주요 시설 관리 시스템 벤치마킹' },
+            { category: 'public', date: '2024.05', title: '양양전통시장 벤치마킹 대행 용역', desc: '전통시장 활성화 우수 사례 조사 및 기획' },
+            { category: 'public', date: '2025.11', title: '정선 시장활성화 사업단 제주 선진지 견학', desc: '제주 지역 상권 활성화 모델 답사 및 워크숍' },
+
+            // School / Education
+            { category: 'school', date: '2025.10', title: '정선고등학교 제주 테마 학습', desc: '학생 안전과 교육적 효과를 최우선으로 한 일정 기획' },
+            { category: 'school', date: '2025.10', title: '사북고등학교 제주 테마 학습', desc: '지역 학교 맞춤형 테마 여행 프로그램 운영' },
+            { category: 'school', date: '2024.09', title: '태백 황지고등학교 제주도 수학여행', desc: '대규모 학생 단체 이동 및 숙박 안전 관리 완벽 수행' },
+            { category: 'school', date: '2024.10', title: '함백고등학교 서울 문화 체험', desc: '수도권 문화 예술 체험 및 진로 탐색 프로그램' },
+            { category: 'school', date: '2025.09', title: '철암고등학교 제주 테마 학습', desc: '역사, 문화, 자연을 아우르는 융합형 체험 학습' },
+
+            // Corporate / MICE
+            { category: 'corp', date: '2025.02', title: 'HCI KOREA 2025 학술대회 지원', desc: '연사 초청 관리 및 학술대회 운영 지원 (MICE)' },
+            { category: 'corp', date: '2024.11', title: '강원랜드 협력사 우수직원 마카오 연수', desc: '복합리조트 벤치마킹 및 우수 직원 포상 휴가 기획' },
+            { category: 'corp', date: '2025.11', title: '강원랜드 협력사 서비스 우수직원 연수', desc: '글로벌 서비스 스탠다드 체험 및 역량 강화' },
+            { category: 'corp', date: '2024.09', title: '정선아리랑 문화재단 직원 역량강화 워크숍', desc: '조직 활성화를 위한 팀빌딩 및 소통 프로그램' },
+            { category: 'corp', date: '2025.05', title: '정선 청소년 수련관 해커톤 대회 행사', desc: '청소년 IT 역량 강화를 위한 행사 운영 및 지원' },
+        ];
+
+        function renderPortfolio(items) {
+            const listContainer = document.getElementById('portfolio-list');
+            listContainer.innerHTML = '';
+            
+            items.forEach((item, index) => {
+                const el = document.createElement('div');
+                el.className = 'bg-white p-5 rounded-xl card-shadow border border-slate-50 flex flex-col md:flex-row gap-4 items-start md:items-center animate-fade-in';
+                el.style.animationDelay = `${index * 0.05}s`;
+                
+                let iconClass = 'fa-plane';
+                let colorClass = 'text-blue-500 bg-blue-50';
+                
+                if (item.category === 'global') { iconClass = 'fa-globe'; colorClass = 'text-indigo-500 bg-indigo-50'; }
+                else if (item.category === 'public') { iconClass = 'fa-building-columns'; colorClass = 'text-emerald-500 bg-emerald-50'; }
+                else if (item.category === 'school') { iconClass = 'fa-graduation-cap'; colorClass = 'text-amber-500 bg-amber-50'; }
+                else if (item.category === 'corp') { iconClass = 'fa-briefcase'; colorClass = 'text-rose-500 bg-rose-50'; }
+
+                el.innerHTML = `
+                    <div class="flex-shrink-0 w-12 h-12 rounded-lg ${colorClass} flex items-center justify-center text-xl">
+                        <i class="fas ${iconClass}"></i>
+                    </div>
+                    <div class="flex-grow">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="text-xs font-bold px-2 py-0.5 rounded bg-slate-100 text-slate-500">${item.date}</span>
+                            <span class="text-xs font-semibold uppercase text-slate-400 tracking-wide">${getCategoryName(item.category)}</span>
+                        </div>
+                        <h4 class="font-bold text-slate-800 text-lg">${item.title}</h4>
+                        <p class="text-slate-500 text-sm mt-1">${item.desc}</p>
+                    </div>
+                `;
+                listContainer.appendChild(el);
+            });
+        }
+
+        function getCategoryName(cat) {
+            if(cat === 'global') return 'Global Tech';
+            if(cat === 'public') return 'Public Sector';
+            if(cat === 'school') return 'Education';
+            if(cat === 'corp') return 'Corporate/MICE';
+            return 'General';
+        }
+
+        function filterPortfolio(category) {
+            // Update buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active', 'bg-blue-600', 'text-white', 'border-blue-600'));
+            event.target.classList.add('active');
+
+            // Filter items
+            if (category === 'all') {
+                renderPortfolio(portfolioData);
+            } else {
+                const filtered = portfolioData.filter(item => item.category === category);
+                renderPortfolio(filtered);
+            }
+        }
+
+        // Initial render
+        renderPortfolio(portfolioData);
+    </script>
+</body>
+</html>
