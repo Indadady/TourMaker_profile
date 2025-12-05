@@ -9,13 +9,15 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="(주)투어메이커 - 스마트 여행 솔루션">
     <meta property="og:description" content="AI 기술 연수부터 지역 특화 벤치마킹까지, 관공서/교육기관 전문 여행 기획">
-    <meta property="og:image" content="https://blogger.googleusercontent.com/img/a/AVvXsEi0YSsOZ847rEAjEI5w8uFj7k66WmuO18z2dZuvC5dR80SjnRbjOSrWRmqAP3CrBLPQgWQloK8Ic9n15Kjj879TNlCy8dGxyArnbDnorHB9VhqP-9dqOAb0Dnb0TOf67vZ94O-z_NQ0KUCqv7Ig-SEEWE4yESfTvJXwTgSn5wj03vT048UiCyMyl-hF-6w">
+    <!-- 썸네일 이미지 교체 완료 (라운드 로고) -->
+    <meta property="og:image" content="https://blogger.googleusercontent.com/img/a/AVvXsEitI-Z-hD82keOJ1AqHw-VTZjpw2U-O5UjtV9h3zblyG0wjsVfBWe9X9o0Q_Spctrt7krkd9qXO0xKTmGJLw4gyMZrRqpshKMFttnyx6OcC8-IGz3XLUZpGQOnRqVdol8jz5HuoDLqsEifnVRhcjUJHm13Sz8JrX9aPswMNUwZPvGtJEnQjhc2PiXlo-B8">
     
     <!-- Twitter Card (트위터 등 공유 설정) -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="(주)투어메이커 - 스마트 여행 솔루션">
     <meta name="twitter:description" content="AI 기술 연수부터 지역 특화 벤치마킹까지, 관공서/교육기관 전문 여행 기획">
-    <meta name="twitter:image" content="https://blogger.googleusercontent.com/img/a/AVvXsEi0YSsOZ847rEAjEI5w8uFj7k66WmuO18z2dZuvC5dR80SjnRbjOSrWRmqAP3CrBLPQgWQloK8Ic9n15Kjj879TNlCy8dGxyArnbDnorHB9VhqP-9dqOAb0Dnb0TOf67vZ94O-z_NQ0KUCqv7Ig-SEEWE4yESfTvJXwTgSn5wj03vT048UiCyMyl-hF-6w">
+    <!-- 썸네일 이미지 교체 완료 (라운드 로고) -->
+    <meta name="twitter:image" content="https://blogger.googleusercontent.com/img/a/AVvXsEitI-Z-hD82keOJ1AqHw-VTZjpw2U-O5UjtV9h3zblyG0wjsVfBWe9X9o0Q_Spctrt7krkd9qXO0xKTmGJLw4gyMZrRqpshKMFttnyx6OcC8-IGz3XLUZpGQOnRqVdol8jz5HuoDLqsEifnVRhcjUJHm13Sz8JrX9aPswMNUwZPvGtJEnQjhc2PiXlo-B8">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -476,6 +478,24 @@
                 `;
                 listContainer.appendChild(el);
             });
+
+            // "More Projects" Card
+            const moreEl = document.createElement('div');
+            moreEl.className = 'bg-gradient-to-r from-slate-800 to-slate-900 p-5 rounded-xl card-shadow flex flex-col md:flex-row gap-4 items-center justify-center text-center animate-fade-in border border-slate-700';
+            moreEl.style.animationDelay = `${items.length * 0.05}s`;
+            moreEl.innerHTML = `
+                <div class="flex-shrink-0 w-12 h-12 rounded-lg bg-white/10 flex items-center justify-center text-xl text-white">
+                    <i class="fas fa-plus"></i>
+                </div>
+                <div class="flex-grow">
+                    <h4 class="font-bold text-white text-lg">이외 다수의 공공/기업 용역 수행 중</h4>
+                    <p class="text-slate-400 text-sm mt-1">성공적인 파트너십을 위한 다음 주인공은 귀하입니다.</p>
+                </div>
+                <a href="tel:010-9443-7881" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-bold transition whitespace-nowrap">
+                    문의하기
+                </a>
+            `;
+            listContainer.appendChild(moreEl);
         }
 
         function getCategoryName(cat) {
