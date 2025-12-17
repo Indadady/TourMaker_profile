@@ -6,7 +6,7 @@
   <title>(주)투어메이커 - 믿을 수 있는 종합 여행 파트너</title>
 
   <!-- SEO -->
-  <meta name="description" content="S2B 학교장터 등록업체. 공공기관 연수부터 가이드 없는 자유여행 패키지까지. 기획은 꼼꼼하게, 여행은 자유롭게." />
+  <meta name="description" content="S2B 학교장터 및 나라장터 등록업체. 공공기관 연수부터 가이드 없는 자유여행 패키지까지. 기획은 꼼꼼하게, 여행은 자유롭게." />
   <meta name="robots" content="index,follow" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="(주)투어메이커 - 믿을 수 있는 종합 여행 파트너" />
@@ -53,7 +53,6 @@
       <!-- Logo Section -->
       <a href="#" class="flex items-center">
         <!-- Original Full Logo Displayed (Symbol + TOURMAKER Text) -->
-        <!-- No extra text next to it -->
         <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHfgIX70O5k6Anuo0UgALIdaG9jSga9auHu3uyz0uEirylGPAJnjN_qQbvEGMUvPqUQf_g9FMNUHRxlDcUBf4vZ3Mpy4TnA9WxbmzWYK11gt2zuy_Irl4wctNFjcjLyPo0GPXV792o_J7L9guRMuDfeC1gy7USwywjYbECZgzcsHybuGRRAXAnO1eNmP8/s320/logo.png" alt="Tourmaker Logo" class="h-8 md:h-10 w-auto object-contain hover:opacity-90 transition-opacity" />
       </a>
       <div class="flex items-center gap-4">
@@ -107,7 +106,7 @@
             <i class="fas fa-globe text-yellow-300"></i> 국외/국내 종합여행업 등록
         </div>
         <div class="flex items-center gap-2 bg-white/10 px-3 py-1 rounded-full border border-white/20">
-            <i class="fas fa-school text-blue-300"></i> S2B 학교장터 등록업체
+            <i class="fas fa-school text-blue-300"></i> S2B / 나라장터 동시 등록
         </div>
         <div class="flex items-center gap-2 bg-white/10 px-3 py-1 rounded-full border border-white/20">
             <i class="fas fa-shield-alt text-green-300"></i> 서울보증보험 가입
@@ -379,6 +378,7 @@
             <button data-cat="global" class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-white border border-slate-200 text-slate-600 hover:bg-slate-100 transition shadow-sm">글로벌/연수</button>
             <button data-cat="public" class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-white border border-slate-200 text-slate-600 hover:bg-slate-100 transition shadow-sm">공공/지자체</button>
             <button data-cat="school" class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-white border border-slate-200 text-slate-600 hover:bg-slate-100 transition shadow-sm">학교/교육</button>
+            <button data-cat="corp" class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-white border border-slate-200 text-slate-600 hover:bg-slate-100 transition shadow-sm">기업/MICE</button>
         </div>
 
         <div id="portfolio-list" class="space-y-3">
@@ -485,14 +485,50 @@
     }
 
     const portfolioData = [
-      { category: 'global', date: '2025.01', title: '데이터보안·활용 혁신융합 사업 해외(싱가포르) 기술연수', desc: '강원대/아주대/한양대ERICA 연합 (50명)' },
-      { category: 'global', date: '2025.09', title: '강원대학교 데이터사이언스학과 일본 단기 연수', desc: 'AI 융합 전공 심화 연수 기획 (30명)' },
-      { category: 'global', date: '2024.10', title: 'KAIST x NYU 교환학생 한국문화체험', desc: '글로벌 명문대 학생 대상 문화체험 (20명)' },
-      { category: 'public', date: '2025.05', title: '정선군청 모범공무원 중국 선진지 견학', desc: '난징/구강 행정 우수 사례 벤치마킹' },
-      { category: 'public', date: '2024.06', title: '정선군청 모범공무원 일본 북해도 연수', desc: '우수 관광자원 조사 및 시찰' },
-      { category: 'corp', date: '2024.11', title: '강원랜드 협력사 우수직원 마카오 연수', desc: '복합리조트 서비스 벤치마킹' },
-      { category: 'school', date: '2025.10', title: '정선고/사북고 제주 테마학습', desc: '안전 최우선 대규모 학생 단체 행사' },
-      { category: 'corp', date: '2025.02', title: 'HCI KOREA 2025 학술대회 운영 지원', desc: '국제 학술대회 MICE 운영' }
+        // Global
+        { category: 'global', date: '2025.01', title: '데이터보안·활용 혁신융합 사업 해외(싱가포르) 기술연수', desc: '강원대, 아주대 등 5개 대학 연합' },
+        { category: 'global', date: '2025.09', title: '강원대학교 데이터사이언스학과 일본 단기 연수', desc: 'AI융합 전공 심화 연수' },
+        { category: 'global', date: '2025.08', title: '첨단소재·나노융합 혁신융합대학사업단 일본 교류', desc: '중앙대, 금오공대 등 참여' },
+        { category: 'global', date: '2024.10', title: 'KAIST x NYU 교환학생 한국문화체험', desc: '글로벌 명문대 학생 대상' },
+        { category: 'global', date: '2024.07', title: '강원대 지역지능화혁신 인재양성사업 상해 연수', desc: '중국 상해 단기 해외 연수' },
+        { category: 'global', date: '2025.06', title: '아리랑문화재단 에스토니아(타루트시) 항공 대행', desc: '국제 교류 항공편 지원' },
+
+        // Public
+        { category: 'public', date: '2025.06', title: '정선군 국외 교류(자매) 도시 방문', desc: '중국 구강(九江)시 운영 용역' },
+        { category: 'public', date: '2025.05', title: '정선군청 모범공무원 해외 선진지 견학', desc: '중국 난징, 구강 행정 우수 사례' },
+        { category: 'public', date: '2024.11', title: '정선군 이장단 해외(일본-큐슈) 선진지 견학', desc: '지역 리더 역량 강화' },
+        { category: 'public', date: '2024.09', title: '정선 시설관리공단 말레이시아 선진시설 견학', desc: '쿠알라룸푸르 시설 벤치마킹' },
+        { category: 'public', date: '2024.06', title: '정선군청 모범공무원 일본 북해도 연수', desc: '우수 관광자원 조사 및 시찰' },
+        { category: 'public', date: '2024.05', title: '양양전통시장 벤치마킹 대행 용역', desc: '전통시장 활성화 우수 사례' },
+        { category: 'public', date: '2025.11', title: '정선 시장활성화 사업단 제주 선진지 견학', desc: '제주 지역 상권 활성화 모델' },
+        { category: 'public', date: '2025.11', title: '정선군 아동돌봄 종사자 워크숍', desc: '역량 강화 및 힐링 프로그램' },
+        { category: 'public', date: '2025.07', title: '군민정원사 양성과정 우수정원 견학', desc: '정원 문화 확산 및 벤치마킹' },
+        { category: 'public', date: '2025.06', title: '공공운수노조 선진지 견학 대행', desc: '선진 교통 문화 체험' },
+        { category: 'public', date: '2025.05', title: '정선 청소년 수련관 해커톤 대회', desc: '청소년 IT 역량 강화 행사' },
+        { category: 'public', date: '2024.11', title: '고한구공탄시장 제주 야시장 선진지 견학', desc: '야시장 운영 노하우 습득' },
+        { category: 'public', date: '2024.10', title: '정선국가정원 범국민추진위원회 선진지 견학', desc: '국가정원 추진 역량 결집' },
+
+        // Corp
+        { category: 'corp', date: '2025.11', title: '강원랜드 협력사 서비스 우수직원 해외연수', desc: '마카오 복합리조트 벤치마킹' },
+        { category: 'corp', date: '2024.11', title: '강원랜드 협력사 우수직원 마카오 연수', desc: '서비스 역량 강화 및 포상' },
+        { category: 'corp', date: '2025.02', title: 'HCI KOREA 2025 학술대회 운영 지원', desc: '연사 초청 및 MICE 행사 지원' },
+        { category: 'corp', date: '2024.11', title: '강원랜드 희망재단 진폐휴양프로그램', desc: '일본 오사카 힐링 투어' },
+        { category: 'corp', date: '2024.09', title: '정선아리랑 문화재단 직원 역량강화 워크숍', desc: '조직 활성화 및 소통 프로그램' },
+
+        // School
+        { category: 'school', date: '2025.12', title: '함백고등학교 3학년 현장체험학습', desc: '졸업 전 추억 만들기' },
+        { category: 'school', date: '2025.10', title: '정선고등학교 제주 테마 학습', desc: '안전 최우선 대규모 수학여행' },
+        { category: 'school', date: '2025.10', title: '함백중학교 서울역사 문화탐방', desc: '역사 인식 고취 및 문화 체험' },
+        { category: 'school', date: '2025.10', title: '사북고등학교 제주 테마 학습', desc: '학생 주도형 체험 학습' },
+        { category: 'school', date: '2025.09', title: '철암고등학교 제주 테마 학습', desc: '자연 유산 탐방' },
+        { category: 'school', date: '2025.09', title: '남선초등학교 제주 테마 학습', desc: '초등학생 눈높이 맞춤형 프로그램' },
+        { category: 'school', date: '2025.07', title: '영월 신천초등학교 해외문화체험', desc: '필리핀 세부 어학연수 위탁' },
+        { category: 'school', date: '2025.06', title: '남평초 일본 북해도 해외문화체험', desc: '글로벌 문화 탐방' },
+        { category: 'school', date: '2025.06', title: '아라리 과학캠프 제주 행사', desc: '과학 테마 체험 학습' },
+        { category: 'school', date: '2024.12', title: '정선관내 중고등학생 지역바로알리기 팸투어', desc: '내 고장 사랑 캠페인' },
+        { category: 'school', date: '2024.10', title: '함백고등학교 서울 문화 체험', desc: '수도권 대학 탐방 및 문화 관람' },
+        { category: 'school', date: '2024.09', title: '태백 황지고등학교 제주도 수학여행', desc: '대규모 학생 수송 및 안전 관리' },
+        { category: 'school', date: '2024.09', title: '평창 안미초등학교 수학여행', desc: '소규모 학교 맞춤형 여행' }
     ];
 
     function renderPortfolio(cat) {
