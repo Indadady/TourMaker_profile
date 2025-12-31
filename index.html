@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <!-- 🚨 Google Analytics (GA4) - Tourmaker 통합 관리 [추가됨] -->
+    <!-- 🚨 Google Analytics (GA4) - Tourmaker 통합 관리 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-JLH9GD9SVR"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -35,6 +35,27 @@
         :root { --brand-blue: #1e40af; --brand-accent: #f59e0b; }
         body { font-family: 'Noto Sans KR', sans-serif; background-color: #f8f9fa; color: #334155; }
         section { scroll-margin-top: 80px; }
+        
+        /* Intro Motion Logo Styles */
+        #intro-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s ease-out;
+        }
+        #intro-video {
+            max-width: 80%; /* 모바일 대응 */
+            max-height: 80vh;
+            width: 600px; /* PC 적정 사이즈 */
+            object-fit: contain;
+        }
         
         .hero-bg {
             background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 58, 138, 0.8) 100%), url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2021&auto=format&fit=crop');
@@ -102,6 +123,16 @@
 
 <body class="overflow-x-hidden">
 
+    <!-- 🎬 Intro Motion Logo Overlay -->
+    <div id="intro-overlay">
+        <!-- 깃허브에 업로드한 파일명과 정확히 일치해야 합니다 (대소문자 구분) -->
+        <video id="intro-video" muted playsinline autoplay>
+            <source src="./모션로고_투어메이커.mp4" type="video/mp4">
+            <!-- 브라우저 호환성을 위해 소스 추가 가능 -->
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
     <!-- Navigation -->
     <nav class="bg-white/95 backdrop-blur-md fixed w-full z-50 border-b border-slate-100 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 h-16 flex justify-between items-center">
@@ -143,7 +174,6 @@
             </p>
 
             <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <!-- PDF Download Link Fix: Ensure the file exists in the GitHub root -->
                 <a href="투어메이커_회사소개서.pdf" download="투어메이커_회사소개서.pdf" class="bg-white text-blue-900 px-10 py-5 rounded-2xl font-black transition hover:bg-blue-50 shadow-2xl flex items-center justify-center gap-3">
                     <i class="fas fa-file-pdf"></i> 회사소개서(PDF) 다운로드
                 </a>
@@ -189,7 +219,7 @@
             </div>
         </section>
 
-        <!-- Video Curation: Thumbnail Fix applied -->
+        <!-- Video Curation -->
         <section id="visuals" class="py-24 px-4 bg-slate-900 text-white overflow-hidden">
             <div class="max-w-6xl mx-auto text-center mb-16">
                 <span class="text-blue-400 font-bold text-xs tracking-widest uppercase mb-4 block">Official Curation</span>
@@ -487,6 +517,29 @@
     </div>
 
     <script>
+        // 🎬 Intro Control Script
+        window.addEventListener('load', function() {
+            const introOverlay = document.getElementById('intro-overlay');
+            const introVideo = document.getElementById('intro-video');
+
+            if (introVideo && introOverlay) {
+                // 영상이 끝나면 인트로 제거 (video ended event)
+                introVideo.addEventListener('ended', function() {
+                    fadeOutIntro();
+                });
+
+                // 혹시 모를 상황 대비: 5초 후 강제 종료 (안전장치)
+                setTimeout(fadeOutIntro, 5000);
+
+                function fadeOutIntro() {
+                    introOverlay.style.opacity = '0';
+                    setTimeout(function() {
+                        introOverlay.style.display = 'none';
+                    }, 800); // CSS transition time과 일치
+                }
+            }
+        });
+
         function loadVideo(container, videoId) {
             container.innerHTML = `<iframe class="w-full h-full" src="https://www.youtube.com/embed/${videoId}?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
             container.classList.remove('video-placeholder');
