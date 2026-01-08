@@ -36,14 +36,14 @@
         body { font-family: 'Noto Sans KR', sans-serif; background-color: #f8f9fa; color: #334155; }
         section { scroll-margin-top: 80px; }
         
-        /* Intro Motion Logo Styles */
+        /* Intro Motion Logo Styles - PC/모바일 분리 최적화 */
         #intro-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #ffffff;
+            background-color: #ececec; /* 배경색 */
             z-index: 9999;
             display: flex;
             justify-content: center;
@@ -56,15 +56,26 @@
             max-height: 80vh;
             width: 600px; /* PC 기본 사이즈 */
             object-fit: contain;
-            transition: transform 0.3s ease; 
+            transition: transform 0.3s ease;
+            mix-blend-mode: multiply; 
+            
+            /* 💡 [PC 최적화 최종] Spotlight Masking 강화 (경계선 완벽 제거) 
+               - 중앙 20%만 선명하게 유지하고, 60% 지점에서 완전히 투명하게 처리
+               - 이렇게 하면 영상의 네모난 테두리보다 훨씬 안쪽에서 이미지가 사라지므로 경계선이 보일 수 없음 */
+            -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 60%);
+            mask-image: radial-gradient(ellipse at center, black 20%, transparent 60%);
         }
 
-        /* 📱 모바일 전용 로고 확대 */
+        /* 📱 모바일 전용: 기존 선형 마스크 유지 (사용자 피드백 반영) */
         @media (max-width: 768px) {
             #intro-video {
                 max-width: 100%; 
                 width: 100%;      
-                transform: scale(1.6);
+                transform: scale(1.6); /* 모바일 확대 유지 */
+                
+                /* 모바일은 위아래를 자르는 기존 선형 방식 유지 */
+                -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 25%, black 75%, transparent 100%);
+                mask-image: linear-gradient(to bottom, transparent 0%, black 25%, black 75%, transparent 100%);
             }
         }
         
@@ -581,13 +592,13 @@
     </div>
 
     <script>
-        // 🎬 Intro Control Script (속도 2.5배속 적용)
+        // 🎬 Intro Motion Logo Control Script (속도 2.5배속 적용)
         window.addEventListener('load', function() {
             const introOverlay = document.getElementById('intro-overlay');
             const introVideo = document.getElementById('intro-video');
 
             if (introVideo && introOverlay) {
-                // ⚡️[핵심 수정] 영상 재생 속도를 2.5배로 더 빠르게 설정 (3초 내외)
+                // ⚡️ 영상 재생 속도를 2.5배로 빠르게 설정
                 introVideo.playbackRate = 2.5;
 
                 // 영상이 끝나면 인트로 제거 (video ended event)
@@ -595,7 +606,7 @@
                     fadeOutIntro();
                 });
 
-                // [안전장치 수정] 기존 3.5초 -> 2.5초로 더 단축 (속도감 최우선)
+                // [안전장치] 영상 로딩 문제 등에 대비해 2.5초 후 강제 종료
                 setTimeout(fadeOutIntro, 2500);
 
                 function fadeOutIntro() {
@@ -706,3 +717,4 @@
     </script>
 </body>
 </html>
+
