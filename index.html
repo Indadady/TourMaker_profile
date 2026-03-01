@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <!-- ✅ GA4 (Tourmaker 통합 관리) -->
+    <!-- ✅ GA4 (Tourmaker 통합 관리 - 퍼널 분석 최적화) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-JLH9GD9SVR"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-JLH9GD9SVR', { send_page_view: true });
+      gtag('config', 'G-JLH9GD9SVR', { 
+          send_page_view: true,
+          // 기본 스크롤 트래킹 비활성화 (맞춤 스크롤로 50%, 90% 정밀 추적하기 위함)
+          scroll_tracker: false 
+      });
     </script>
 
     <meta charset="UTF-8" />
@@ -19,7 +23,7 @@
     <meta name="robots" content="index,follow" />
     <link rel="canonical" href="https://tourmaker.kr/" />
 
-    <!-- ✅ Open Graph (카톡/네이버/페북 공유 안정화 - 잘림 방지 썸네일 적용) -->
+    <!-- ✅ Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="(주)투어메이커" />
     <meta property="og:title" content="(주)투어메이커 - 데이터로 만드는 혁신적 여행" />
@@ -29,7 +33,7 @@
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
 
-    <!-- ✅ Twitter (기타 공유 채널 대비) -->
+    <!-- ✅ Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="(주)투어메이커 - 데이터로 만드는 혁신적 여행" />
     <meta name="twitter:description" content="공공기관 연수부터 VIP 가족여행까지, 데이터 기반 기획력." />
@@ -44,7 +48,7 @@
     <!-- ✅ Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- ✅ Structured Data (검색 최적화 JSON-LD) -->
+    <!-- ✅ Structured Data -->
     <script type="application/ld+json">
     {
       "@context":"https://schema.org",
@@ -70,11 +74,8 @@
 
         /* ✅ Intro Overlay */
         #intro-overlay{
-            position:fixed; inset:0;
-            background-color:#ececec;
-            z-index:9999;
-            display:flex; justify-content:center; align-items:center;
-            transition: opacity 0.6s ease-out;
+            position:fixed; inset:0; background-color:#ececec; z-index:9999;
+            display:flex; justify-content:center; align-items:center; transition: opacity 0.6s ease-out;
         }
         #intro-video{
             max-width:80%; max-height:80vh; width:600px; object-fit:contain;
@@ -90,18 +91,10 @@
             }
         }
         .intro-skip{
-            position:absolute; top:24px; right:24px;
-            background: rgba(255, 255, 255, 0.8);
-            color: #334155;
-            border: 1px solid #cbd5e1;
-            padding: 8px 16px;
-            border-radius: 999px;
-            font-size: 13px; font-weight: 700;
-            display:flex; align-items:center; gap:8px;
-            cursor:pointer;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-            transition: all 0.2s ease;
-            z-index: 10000;
+            position:absolute; top:24px; right:24px; background: rgba(255, 255, 255, 0.8);
+            color: #334155; border: 1px solid #cbd5e1; padding: 8px 16px; border-radius: 999px;
+            font-size: 13px; font-weight: 700; display:flex; align-items:center; gap:8px;
+            cursor:pointer; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); transition: all 0.2s ease; z-index: 10000;
         }
         .intro-skip:hover{ background: #fff; transform: translateY(-2px); }
 
@@ -115,11 +108,9 @@
 
         .card-shadow{ box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03); transition: all 0.3s ease; }
         .card-shadow:hover{ transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
-
         .faq-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
         .faq-input:checked ~ .faq-content { max-height: 500px; }
         .faq-input:checked ~ label .arrow { transform: rotate(180deg); }
-
         .animate-fade-up { animation: fadeUp 0.8s ease-out forwards; opacity: 0; transform: translateY(20px); }
         @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
@@ -128,28 +119,21 @@
         .video-thumbnail{ width: 100%; height: 100%; object-fit: cover; opacity: 0.85; transition: transform 0.5s ease, opacity 0.3s; }
         .video-container:hover .video-thumbnail{ transform: scale(1.05); opacity: 1; }
         .play-btn{
-            position:absolute; top:50%; left:50%; transform: translate(-50%, -50%);
-            width: 60px; height: 60px; background: rgba(255,255,255,0.15); backdrop-filter: blur(8px);
-            border: 2px solid white; border-radius: 50%; display:flex; align-items:center; justify-content:center;
-            color:white; font-size:1.25rem; transition: all 0.3s ease; z-index: 10;
+            position:absolute; top:50%; left:50%; transform: translate(-50%, -50%); width: 60px; height: 60px;
+            background: rgba(255,255,255,0.15); backdrop-filter: blur(8px); border: 2px solid white; border-radius: 50%;
+            display:flex; align-items:center; justify-content:center; color:white; font-size:1.25rem; transition: all 0.3s ease; z-index: 10;
         }
         .video-container:hover .play-btn{ background:white; color:#1e40af; transform: translate(-50%, -50%) scale(1.1); }
         
         /* Phone Mockup Style */
         .phone-mockup {
-            border: 8px solid #1e293b;
-            border-radius: 2.5rem;
-            overflow: hidden;
-            position: relative;
-            background-color: #fff;
-            aspect-ratio: 9/19;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border: 8px solid #1e293b; border-radius: 2.5rem; overflow: hidden; position: relative;
+            background-color: #fff; aspect-ratio: 9/19; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .phone-mockup::before {
-            content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-            width: 40%; height: 24px; background-color: #1e293b;
-            border-bottom-left-radius: 1rem; border-bottom-right-radius: 1rem; z-index: 20;
+            content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 40%; height: 24px;
+            background-color: #1e293b; border-bottom-left-radius: 1rem; border-bottom-right-radius: 1rem; z-index: 20;
         }
         .phone-mockup:hover { transform: translateY(-10px) scale(1.02); }
     </style>
@@ -159,36 +143,35 @@
 
     <!-- 🎬 Intro Motion Logo Overlay -->
     <div id="intro-overlay" aria-hidden="true">
-        <button class="intro-skip" id="intro-skip-btn" type="button" aria-label="인트로 건너뛰기">
+        <button class="intro-skip" id="intro-skip-btn" type="button" aria-label="인트로 건너뛰기" data-ga="click_intro_skip">
             Skip <i class="fa-solid fa-forward"></i>
         </button>
         <video id="intro-video" muted playsinline autoplay>
             <source src="./모션로고_투어메이커.mp4" type="video/mp4">
-            Your browser does not support the video tag.
         </video>
     </div>
 
     <!-- Navigation -->
     <nav class="bg-white/95 backdrop-blur-md fixed w-full z-50 border-b border-slate-100 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 h-16 flex justify-between items-center">
-            <a href="#" class="flex items-center" aria-label="투어메이커 홈">
+            <a href="#" class="flex items-center" aria-label="투어메이커 홈" data-ga="click_nav_logo">
                 <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHfgIX70O5k6Anuo0UgALIdaG9jSga9auHu3uyz0uEirylGPAJnjN_qQbvEGMUvPqUQf_g9FMNUHRxlDcUBf4vZ3Mpy4TnA9WxbmzWYK11gt2zuy_Irl4wctNFjcjLyPo0GPXV792o_J7L9guRMuDfeC1gy7USwywjYbECZgzcsHybuGRRAXAnO1eNmP8/s320/logo.png" alt="Tourmaker Logo" class="h-8 md:h-10 w-auto object-contain" loading="eager" decoding="async" />
             </a>
 
             <div class="flex items-center gap-6">
                 <div class="hidden lg:flex gap-6 text-sm font-bold text-slate-600">
-                    <a href="#about" class="hover:text-blue-600 transition">소개</a>
-                    <a href="#flagship" class="hover:text-blue-600 transition">글로벌연수</a>
-                    <a href="#specialty" class="hover:text-blue-600 transition">맞춤/가족여행</a>
-                    <a href="#demo" class="hover:text-blue-600 transition">스마트데모</a>
-                    <a href="#portfolio" class="hover:text-blue-600 transition">수행실적</a>
+                    <a href="#about" class="hover:text-blue-600 transition" data-ga="nav_about">소개</a>
+                    <a href="#flagship" class="hover:text-blue-600 transition" data-ga="nav_flagship">글로벌연수</a>
+                    <a href="#specialty" class="hover:text-blue-600 transition" data-ga="nav_specialty">맞춤/가족여행</a>
+                    <a href="#demo" class="hover:text-blue-600 transition" data-ga="nav_demo">스마트데모</a>
+                    <a href="#portfolio" class="hover:text-blue-600 transition" data-ga="nav_portfolio">수행실적</a>
                 </div>
 
                 <div class="flex items-center gap-3">
-                    <a href="tel:0335622551" class="hidden md:flex items-center gap-2 text-blue-700 font-bold text-sm bg-blue-50 px-3 py-2 rounded-lg border border-blue-100" data-ga="click_call" aria-label="사무실 전화하기">
+                    <a href="tel:0335622551" class="hidden md:flex items-center gap-2 text-blue-700 font-bold text-sm bg-blue-50 px-3 py-2 rounded-lg border border-blue-100" data-ga="cta_nav_call" aria-label="사무실 전화하기">
                         <i class="fas fa-phone-alt"></i> 033-562-2551
                     </a>
-                    <a href="https://pf.kakao.com/_fxjxiQn/chat" target="_blank" rel="noopener" class="bg-yellow-400 hover:bg-yellow-500 text-slate-900 px-4 py-2 rounded-lg text-sm font-bold transition flex items-center gap-2 shadow-sm" data-ga="click_kakao_chat" aria-label="카카오톡 상담">
+                    <a href="https://pf.kakao.com/_fxjxiQn/chat" target="_blank" rel="noopener" class="bg-yellow-400 hover:bg-yellow-500 text-slate-900 px-4 py-2 rounded-lg text-sm font-bold transition flex items-center gap-2 shadow-sm" data-ga="cta_nav_kakao" aria-label="카카오톡 상담">
                         <i class="fas fa-comment"></i> <span class="hidden sm:inline">상담톡</span>
                     </a>
                 </div>
@@ -214,27 +197,19 @@
             </p>
 
             <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="투어메이커_회사소개서.pdf" download="투어메이커_회사소개서.pdf" class="bg-white text-blue-900 px-10 py-5 rounded-2xl font-black transition hover:bg-blue-50 shadow-2xl flex items-center justify-center gap-3" data-ga="download_company_pdf">
+                <a href="투어메이커_회사소개서.pdf" download="투어메이커_회사소개서.pdf" class="bg-white text-blue-900 px-10 py-5 rounded-2xl font-black transition hover:bg-blue-50 shadow-2xl flex items-center justify-center gap-3" data-ga="cta_hero_download">
                     <i class="fas fa-file-pdf"></i> 회사소개서(PDF) 다운로드
                 </a>
-                <a href="https://pf.kakao.com/_fxjxiQn/chat" target="_blank" rel="noopener" class="bg-yellow-400 hover:bg-yellow-500 text-slate-900 px-10 py-5 rounded-2xl font-black transition shadow-2xl flex items-center justify-center gap-3" data-ga="click_kakao_chat">
+                <a href="https://pf.kakao.com/_fxjxiQn/chat" target="_blank" rel="noopener" class="bg-yellow-400 hover:bg-yellow-500 text-slate-900 px-10 py-5 rounded-2xl font-black transition shadow-2xl flex items-center justify-center gap-3" data-ga="cta_hero_kakao">
                     <i class="fas fa-comment"></i> 카톡 실시간 상담
                 </a>
             </div>
 
             <div class="mt-16 flex flex-wrap justify-center gap-4 md:gap-8 opacity-90 text-sm font-bold">
-                <div class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-xl border border-white/10 backdrop-blur-sm">
-                    <i class="fas fa-certificate text-yellow-400"></i> 국외/국내 여행업 등록
-                </div>
-                <div class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-xl border border-white/10 backdrop-blur-sm">
-                    <i class="fas fa-shield-alt text-green-400"></i> 서울보증보험 가입
-                </div>
-                <div class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-xl border border-white/10 backdrop-blur-sm">
-                    <i class="fas fa-landmark text-blue-300"></i> S2B / 나라장터 동시 등록
-                </div>
-                <div class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-xl border border-white/10 backdrop-blur-sm">
-                    <i class="fas fa-file-signature text-cyan-300"></i> 계약·정산 서류 패키지 제공
-                </div>
+                <div class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-xl border border-white/10 backdrop-blur-sm"><i class="fas fa-certificate text-yellow-400"></i> 국외/국내 여행업 등록</div>
+                <div class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-xl border border-white/10 backdrop-blur-sm"><i class="fas fa-shield-alt text-green-400"></i> 서울보증보험 가입</div>
+                <div class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-xl border border-white/10 backdrop-blur-sm"><i class="fas fa-landmark text-blue-300"></i> S2B / 나라장터 동시 등록</div>
+                <div class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-xl border border-white/10 backdrop-blur-sm"><i class="fas fa-file-signature text-cyan-300"></i> 계약·정산 서류 패키지 제공</div>
             </div>
         </div>
     </header>
@@ -272,23 +247,17 @@
                 </div>
                 <div class="grid md:grid-cols-3 gap-6">
                     <div class="bg-slate-50 p-8 rounded-3xl border border-slate-100 card-shadow">
-                        <div class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center text-blue-600 text-2xl mb-5">
-                            <i class="fa-solid fa-folder-open"></i>
-                        </div>
+                        <div class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center text-blue-600 text-2xl mb-5"><i class="fa-solid fa-folder-open"></i></div>
                         <h4 class="font-black text-slate-900 text-lg mb-2">정산 서류 패키지</h4>
                         <p class="text-sm text-slate-500 leading-relaxed">공문/견적/계약/정산/증빙까지 한 번에 제출 가능한 형태로 정리해 드립니다.</p>
                     </div>
                     <div class="bg-slate-50 p-8 rounded-3xl border border-slate-100 card-shadow">
-                        <div class="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center text-green-600 text-2xl mb-5">
-                            <i class="fa-solid fa-shield-halved"></i>
-                        </div>
+                        <div class="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center text-green-600 text-2xl mb-5"><i class="fa-solid fa-shield-halved"></i></div>
                         <h4 class="font-black text-slate-900 text-lg mb-2">안전·리스크 관리</h4>
                         <p class="text-sm text-slate-500 leading-relaxed">일정 변경/현장 이슈를 대비한 운영 플랜과 커뮤니케이션 체계를 갖추고 있습니다.</p>
                     </div>
                     <div class="bg-slate-50 p-8 rounded-3xl border border-slate-100 card-shadow">
-                        <div class="w-14 h-14 bg-yellow-100 rounded-2xl flex items-center justify-center text-yellow-700 text-2xl mb-5">
-                            <i class="fa-solid fa-mobile-screen-button"></i>
-                        </div>
+                        <div class="w-14 h-14 bg-yellow-100 rounded-2xl flex items-center justify-center text-yellow-700 text-2xl mb-5"><i class="fa-solid fa-mobile-screen-button"></i></div>
                         <h4 class="font-black text-slate-900 text-lg mb-2">스마트 가이드북</h4>
                         <p class="text-sm text-slate-500 leading-relaxed">모바일로 일정·공지·동선을 공유해 현장 문의를 줄이고 만족도를 높입니다.</p>
                     </div>
@@ -296,7 +265,7 @@
             </div>
         </section>
 
-        <!-- Video Curation -->
+        <!-- Video Curation (복원됨: 전체 6개 영상 제공) -->
         <section id="visuals" class="py-24 px-4 bg-slate-900 text-white overflow-hidden">
             <div class="max-w-6xl mx-auto text-center mb-16">
                 <span class="text-blue-400 font-bold text-xs tracking-widest uppercase mb-4 block">Official Curation</span>
@@ -304,9 +273,8 @@
                 <p class="text-slate-400 mt-4">투어메이커의 기획력과 관광청의 공신력이 만납니다.</p>
             </div>
             <div class="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
-                <!-- Singapore -->
                 <div class="group">
-                    <div class="video-container shadow-2xl" onclick="loadVideo(this, '7ipKUSzPHt8')" role="button" aria-label="싱가포르 홍보영상 재생">
+                    <div class="video-container shadow-2xl" onclick="loadVideo(this, '7ipKUSzPHt8')" role="button" data-ga="play_video_singapore">
                         <img src="https://img.youtube.com/vi/7ipKUSzPHt8/hqdefault.jpg" alt="Singapore Thumbnail" class="video-thumbnail" loading="lazy" decoding="async">
                         <div class="play-btn"><i class="fas fa-play ml-1"></i></div>
                     </div>
@@ -315,9 +283,8 @@
                         <p class="text-sm text-slate-400 leading-relaxed line-clamp-2">스마트 시티와 데이터 경제의 글로벌 허브. 투어메이커가 제안하는 기술 연수의 표본입니다.</p>
                     </div>
                 </div>
-                <!-- Macau -->
                 <div class="group">
-                    <div class="video-container shadow-2xl" onclick="loadVideo(this, '13dzs-9geyo')" role="button" aria-label="마카오 홍보영상 재생">
+                    <div class="video-container shadow-2xl" onclick="loadVideo(this, '13dzs-9geyo')" role="button" data-ga="play_video_macau">
                         <img src="https://img.youtube.com/vi/13dzs-9geyo/hqdefault.jpg" alt="Macau Thumbnail" class="video-thumbnail" loading="lazy" decoding="async">
                         <div class="play-btn"><i class="fas fa-play ml-1"></i></div>
                     </div>
@@ -326,9 +293,8 @@
                         <p class="text-sm text-slate-400 leading-relaxed line-clamp-2">복합 리조트 산업의 정수. 강원랜드 협력사 및 지자체 시찰을 위한 최적의 장소입니다.</p>
                     </div>
                 </div>
-                <!-- Shanghai -->
                 <div class="group">
-                    <div class="video-container shadow-2xl" onclick="loadVideo(this, 'Ly6Botr2638')" role="button" aria-label="상해 홍보영상 재생">
+                    <div class="video-container shadow-2xl" onclick="loadVideo(this, 'Ly6Botr2638')" role="button" data-ga="play_video_shanghai">
                         <img src="https://img.youtube.com/vi/Ly6Botr2638/hqdefault.jpg" alt="Shanghai Thumbnail" class="video-thumbnail" loading="lazy" decoding="async">
                         <div class="play-btn"><i class="fas fa-play ml-1"></i></div>
                     </div>
@@ -337,9 +303,9 @@
                         <p class="text-sm text-slate-400 leading-relaxed line-clamp-2">아시아의 경제 중심지. 첨단 AI 기술과 과거의 유산이 공존하는 매력적인 연수지입니다.</p>
                     </div>
                 </div>
-                <!-- Hangzhou -->
+                <!-- 삭제되었던 영상 복원 -->
                 <div class="group">
-                    <div class="video-container shadow-2xl" onclick="loadVideo(this, 'gBLWtXkXHoo')" role="button" aria-label="항주 홍보영상 재생">
+                    <div class="video-container shadow-2xl" onclick="loadVideo(this, 'gBLWtXkXHoo')" role="button" data-ga="play_video_hangzhou">
                         <img src="https://img.youtube.com/vi/gBLWtXkXHoo/hqdefault.jpg" alt="Hangzhou Thumbnail" class="video-thumbnail" loading="lazy" decoding="async">
                         <div class="play-btn"><i class="fas fa-play ml-1"></i></div>
                     </div>
@@ -348,9 +314,8 @@
                         <p class="text-sm text-slate-400 leading-relaxed line-clamp-2">알리바바의 본고장. 눈부신 자연경관 속에서 피어나는 혁신적인 트래블 테크를 경험하세요.</p>
                     </div>
                 </div>
-                <!-- Taiwan -->
                 <div class="group">
-                    <div class="video-container shadow-2xl" onclick="loadVideo(this, 'X2iPm7GITyM')" role="button" aria-label="대만 홍보영상 재생">
+                    <div class="video-container shadow-2xl" onclick="loadVideo(this, 'X2iPm7GITyM')" role="button" data-ga="play_video_taiwan">
                         <img src="https://img.youtube.com/vi/X2iPm7GITyM/hqdefault.jpg" alt="Taiwan Thumbnail" class="video-thumbnail" loading="lazy" decoding="async">
                         <div class="play-btn"><i class="fas fa-play ml-1"></i></div>
                     </div>
@@ -359,9 +324,8 @@
                         <p class="text-sm text-slate-400 leading-relaxed line-clamp-2">미식과 감성의 힐링 여행. VIP 가족 여행과 프라이빗 투어의 만족도가 가장 높은 목적지입니다.</p>
                     </div>
                 </div>
-                <!-- Osaka -->
                 <div class="group">
-                    <div class="video-container shadow-2xl" onclick="loadVideo(this, 'Xg2aoWcLiFU')" role="button" aria-label="오사카 홍보영상 재생">
+                    <div class="video-container shadow-2xl" onclick="loadVideo(this, 'Xg2aoWcLiFU')" role="button" data-ga="play_video_osaka">
                         <img src="https://img.youtube.com/vi/Xg2aoWcLiFU/hqdefault.jpg" alt="Osaka Thumbnail" class="video-thumbnail" loading="lazy" decoding="async">
                         <div class="play-btn"><i class="fas fa-play ml-1"></i></div>
                     </div>
@@ -389,18 +353,15 @@
                                 상해·항주 AI 첨단 기업 탐방부터 글로벌 해커톤까지, 대학의 교육 목표를 현장에서 완벽히 구현하는 투어메이커만의 독점 기획 모델입니다.
                             </p>
                             <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                                <a href="https://indadady.github.io/260112_kangwon_univ/" target="_blank" rel="noopener" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-white text-indigo-900 px-8 py-4 rounded-2xl font-black hover:bg-blue-50 transition transform hover:-translate-y-1 shadow-lg" data-ga="click_portfolio_link">
+                                <a href="https://indadady.github.io/260112_kangwon_univ/" target="_blank" rel="noopener" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-white text-indigo-900 px-8 py-4 rounded-2xl font-black hover:bg-blue-50 transition transform hover:-translate-y-1 shadow-lg" data-ga="click_flagship_portfolio">
                                     <span>디지털 제안서 확인</span> <i class="fas fa-external-link-alt text-sm"></i>
-                                </a>
-                                <a href="https://www.youtube.com/watch?v=1E-Vp61P_Sk" target="_blank" rel="noopener" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-blue-500/20 border border-white/30 text-white px-8 py-4 rounded-2xl font-black hover:bg-blue-500 transition transform hover:-translate-y-1 shadow-lg backdrop-blur-md">
-                                    <i class="fas fa-play text-sm"></i> <span>홍보 영상 보기</span>
                                 </a>
                             </div>
                         </div>
                         <div class="w-full lg:w-5/12 max-w-sm shrink-0">
                             <div class="relative mx-auto border-slate-800 bg-slate-800 border-[10px] rounded-[3rem] h-[550px] w-[280px] shadow-2xl overflow-hidden group">
                                 <iframe src="https://indadady.github.io/260112_kangwon_univ/" class="w-full h-full border-none pointer-events-none" title="디지털 제안서 미리보기" loading="lazy"></iframe>
-                                <div class="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer" onclick="window.open('https://indadady.github.io/260112_kangwon_univ/','_blank')" data-ga="click_portfolio_link">
+                                <div class="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer" onclick="window.open('https://indadady.github.io/260112_kangwon_univ/','_blank')" data-ga="click_flagship_portfolio_img">
                                     <span class="text-white font-bold border-2 border-white px-6 py-3 rounded-full text-sm backdrop-blur-md">Full View</span>
                                 </div>
                             </div>
@@ -410,7 +371,7 @@
             </div>
         </section>
 
-        <!-- VIP & Family -->
+        <!-- VIP & Family (복원됨) -->
         <section id="specialty" class="py-24 px-4 bg-white">
             <div class="max-w-6xl mx-auto">
                 <div class="flex flex-col md:flex-row items-center gap-16 mb-24">
@@ -499,7 +460,7 @@
             </div>
         </section>
 
-        <!-- Competitiveness -->
+        <!-- Competitiveness (복원됨) -->
         <section id="competitiveness" class="py-24 px-4 bg-slate-50">
             <div class="max-w-6xl mx-auto">
                 <div class="text-center mb-16">
@@ -531,9 +492,8 @@
             </div>
         </section>
 
-        <!-- ✅ Smart Guidebook Showcase (업그레이드된 최신 시스템 강조로 변경) -->
+        <!-- ✅ Smart Guidebook Showcase -->
         <section id="demo" class="py-24 px-4 bg-slate-900 relative overflow-hidden">
-            <!-- 배경 데코레이션 -->
             <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[100px] pointer-events-none"></div>
             <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-cyan-500/10 rounded-full blur-[100px] pointer-events-none"></div>
             
@@ -555,10 +515,7 @@
                         <div class="phone-mockup w-full max-w-[280px] mb-6 cursor-pointer" onclick="window.open('https://indadady.github.io/261017_Shanghai/', '_blank')" data-ga="click_demo_yeongwol">
                             <img src="https://tse4.mm.bing.net/th/id/OIP.KS-u8UmisbEvzqUH_EeFwwHaFR?w=474&h=379&c=7&p=0" class="w-full h-48 object-cover" alt="Shanghai" loading="lazy">
                             <div class="p-5 text-center relative">
-                                <!-- ✅ 진행중/최신 모델 강조 배지 -->
-                                <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-[10px] font-black px-3 py-1 rounded-full shadow-lg whitespace-nowrap">
-                                    <i class="fas fa-star text-yellow-300 mr-1"></i> 2026 최신 적용 모델
-                                </div>
+                                <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-[10px] font-black px-3 py-1 rounded-full shadow-lg whitespace-nowrap"><i class="fas fa-star text-yellow-300 mr-1"></i> 2026 최신 적용 모델</div>
                                 <span class="text-[10px] font-black text-blue-600 bg-blue-50 px-2 py-1 rounded-md mb-3 inline-block mt-3">공공기관 해외연수</span>
                                 <h4 class="font-black text-slate-900 text-lg mb-2">영월교육지원청<br>상해·항주 진로캠프</h4>
                                 <p class="text-xs text-slate-500 line-clamp-2 mb-4">현지 AI 첨단 기업 탐방 및 역사 문화 시찰을 위한 고도화된 전용 디지털 일정표</p>
@@ -574,10 +531,7 @@
                         <div class="phone-mockup w-full max-w-[280px] mb-6 cursor-pointer transform md:-translate-y-6" onclick="window.open('https://indadady.github.io/260511_jeju/', '_blank')" data-ga="click_demo_jeju">
                             <img src="https://tse3.mm.bing.net/th/id/OIP.2ulywzhjD9nX7aQJ1crd9gHaE7?w=474&h=379&c=7&p=0" class="w-full h-48 object-cover" alt="Jeju" loading="lazy">
                             <div class="p-5 text-center relative">
-                                <!-- ✅ 입찰/제안 모델 강조 배지 -->
-                                <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-rose-500 text-white text-[10px] font-black px-3 py-1 rounded-full shadow-lg whitespace-nowrap">
-                                    <i class="fas fa-file-signature text-white mr-1"></i> 단독 제안 모델
-                                </div>
+                                <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-rose-500 text-white text-[10px] font-black px-3 py-1 rounded-full shadow-lg whitespace-nowrap"><i class="fas fa-file-signature text-white mr-1"></i> 단독 제안 모델</div>
                                 <span class="text-[10px] font-black text-green-600 bg-green-50 px-2 py-1 rounded-md mb-3 inline-block mt-3">국내 프리미엄/복지</span>
                                 <h4 class="font-black text-slate-900 text-lg mb-2">강원랜드 희망재단<br>제주 힐링캠프</h4>
                                 <p class="text-xs text-slate-500 line-clamp-2 mb-4">어르신들도 쉽게 볼 수 있는 직관적 UI와 응급 연락망이 탑재된 입찰 제안 버전</p>
@@ -593,10 +547,7 @@
                         <div class="phone-mockup w-full max-w-[280px] mb-6 cursor-pointer" onclick="window.open('https://indadady.github.io/260512_Osaka/', '_blank')" data-ga="click_demo_mungok">
                             <img src="https://tse1.mm.bing.net/th/id/OIP.vIFl9r9QMSporw7YRCA6_wHaE8?w=474&h=379&c=7&p=0" class="w-full h-48 object-cover" alt="Japan" loading="lazy">
                             <div class="p-5 text-center relative">
-                                <!-- ✅ 진행중/학생특화 배지 -->
-                                <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-yellow-500 text-white text-[10px] font-black px-3 py-1 rounded-full shadow-lg whitespace-nowrap">
-                                    <i class="fas fa-user-graduate text-white mr-1"></i> 2026 학생 관리 특화
-                                </div>
+                                <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-yellow-500 text-white text-[10px] font-black px-3 py-1 rounded-full shadow-lg whitespace-nowrap"><i class="fas fa-user-graduate text-white mr-1"></i> 2026 학생 관리 특화</div>
                                 <span class="text-[10px] font-black text-yellow-600 bg-yellow-50 px-2 py-1 rounded-md mb-3 inline-block mt-3">학교 수학여행/테마</span>
                                 <h4 class="font-black text-slate-900 text-lg mb-2">문곡중학교<br>오사카 문화탐방</h4>
                                 <p class="text-xs text-slate-500 line-clamp-2 mb-4">학생 흥미 유발 디자인 및 선생님을 위한 실시간 학생 인솔 가이드 업그레이드 연동</p>
@@ -610,7 +561,7 @@
             </div>
         </section>
 
-        <!-- Leadership -->
+        <!-- Leadership (복원됨) -->
         <section class="py-24 px-4 bg-white">
             <div class="max-w-6xl mx-auto">
                 <div class="text-center mb-16">
@@ -649,7 +600,7 @@
             </div>
         </section>
 
-        <!-- ✅ Portfolio -->
+        <!-- ✅ Portfolio (전체 24개 데이터 복원) -->
         <section id="portfolio" class="py-24 px-4 bg-slate-50">
             <div class="max-w-6xl mx-auto">
                 <div class="text-center mb-12">
@@ -658,18 +609,17 @@
                 </div>
                 
                 <div class="flex justify-center flex-wrap gap-2 mb-10" id="filter-container"></div>
-                <!-- 포트폴리오 리스트 컨테이너 -->
                 <div id="portfolio-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
                 
                 <div class="mt-12 text-center" id="load-more-container">
-                    <button onclick="showAllPortfolio()" class="bg-white border border-slate-200 text-slate-600 px-8 py-4 rounded-2xl font-bold hover:bg-slate-50 transition shadow-sm" data-ga="view_portfolio_more">
+                    <button onclick="showAllPortfolio()" class="bg-white border border-slate-200 text-slate-600 px-8 py-4 rounded-2xl font-bold hover:bg-slate-50 transition shadow-sm" data-ga="click_portfolio_more">
                         실적 전체보기 (+20건 이상)
                     </button>
                 </div>
             </div>
         </section>
 
-        <!-- FAQ -->
+        <!-- FAQ (복원됨) -->
         <section id="faq" class="py-24 px-4 bg-white border-t border-slate-50">
             <div class="max-w-4xl mx-auto">
                 <div class="text-center mb-12">
@@ -679,7 +629,7 @@
                 <div class="space-y-4">
                     <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm">
                         <input type="checkbox" id="q1" class="hidden faq-input" checked>
-                        <label for="q1" class="flex justify-between items-center p-6 cursor-pointer hover:bg-slate-50 transition font-bold text-sm">
+                        <label for="q1" class="flex justify-between items-center p-6 cursor-pointer hover:bg-slate-50 transition font-bold text-sm" data-ga="click_faq_q1">
                             학교장터(S2B), 나라장터(G2B) 계약이 가능한가요? <i class="fas fa-chevron-down arrow transition-transform"></i>
                         </label>
                         <div class="faq-content px-6 text-slate-500 text-sm leading-relaxed">
@@ -688,7 +638,7 @@
                     </div>
                     <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm">
                         <input type="checkbox" id="q2" class="hidden faq-input">
-                        <label for="q2" class="flex justify-between items-center p-6 cursor-pointer hover:bg-slate-50 transition font-bold text-sm">
+                        <label for="q2" class="flex justify-between items-center p-6 cursor-pointer hover:bg-slate-50 transition font-bold text-sm" data-ga="click_faq_q2">
                             VIP 고객을 위한 맞춤형 인솔 서비스도 제공하나요? <i class="fas fa-chevron-down arrow transition-transform"></i>
                         </label>
                         <div class="faq-content px-6 text-slate-500 text-sm leading-relaxed">
@@ -697,7 +647,7 @@
                     </div>
                     <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm">
                         <input type="checkbox" id="q3" class="hidden faq-input">
-                        <label for="q3" class="flex justify-between items-center p-6 cursor-pointer hover:bg-slate-50 transition font-bold text-sm">
+                        <label for="q3" class="flex justify-between items-center p-6 cursor-pointer hover:bg-slate-50 transition font-bold text-sm" data-ga="click_faq_q3">
                             개인/가족 소규모 단체 예약도 가능한가요? <i class="fas fa-chevron-down arrow transition-transform"></i>
                         </label>
                         <div class="faq-content px-6 text-slate-500 text-sm leading-relaxed">
@@ -706,7 +656,7 @@
                     </div>
                     <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm">
                         <input type="checkbox" id="q4" class="hidden faq-input">
-                        <label for="q4" class="flex justify-between items-center p-6 cursor-pointer hover:bg-slate-50 transition font-bold text-sm">
+                        <label for="q4" class="flex justify-between items-center p-6 cursor-pointer hover:bg-slate-50 transition font-bold text-sm" data-ga="click_faq_q4">
                             견적/제안 요청은 어떻게 하나요? <i class="fas fa-chevron-down arrow transition-transform"></i>
                         </label>
                         <div class="faq-content px-6 text-slate-500 text-sm leading-relaxed">
@@ -733,7 +683,7 @@
                             </div>
                             <div>
                                 <span class="block text-xs font-bold text-blue-300 uppercase tracking-widest mb-1">Official Call</span>
-                                <a href="tel:0335622551" class="text-2xl md:text-3xl font-black text-white hover:text-blue-100 transition tracking_call" data-ga="click_call">033-562-2551</a>
+                                <a href="tel:0335622551" class="text-2xl md:text-3xl font-black text-white hover:text-blue-100 transition tracking_call" data-ga="cta_contact_call">033-562-2551</a>
                             </div>
                         </div>
                         
@@ -760,9 +710,7 @@
         <footer class="bg-slate-900 text-white py-16 px-4">
             <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12 opacity-90">
                 <div>
-                    <!-- ✅ 공식 시스템 로고 적용 (어색한 박스를 제거하고 은은한 후광/백라이트 효과로 자연스럽게 강조) -->
                     <div class="relative inline-block mb-8 group">
-                        <!-- 배경과 자연스럽게 섞이는 화이트 빛무리 (Glow 효과) -->
                         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] bg-white/15 blur-2xl rounded-full pointer-events-none transition-all duration-500 group-hover:bg-white/25 group-hover:blur-3xl"></div>
                         <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHfgIX70O5k6Anuo0UgALIdaG9jSga9auHu3uyz0uEirylGPAJnjN_qQbvEGMUvPqUQf_g9FMNUHRxlDcUBf4vZ3Mpy4TnA9WxbmzWYK11gt2zuy_Irl4wctNFjcjLyPo0GPXV792o_J7L9guRMuDfeC1gy7USwywjYbECZgzcsHybuGRRAXAnO1eNmP8/s320/logo.png" loading="lazy" decoding="async" alt="Footer Logo" class="relative z-10 h-12 md:h-14 object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">
                     </div>
@@ -786,27 +734,48 @@
 
     <!-- Mobile Sticky CTA -->
     <div class="fixed bottom-6 left-4 right-4 z-[100] md:hidden flex gap-2">
-        <a href="tel:0335622551" class="flex-1 bg-blue-700 text-white py-4 rounded-2xl font-black text-center shadow-2xl border border-blue-600" data-ga="click_call">사무실 전화</a>
-        <a href="https://pf.kakao.com/_fxjxiQn/chat" target="_blank" rel="noopener" class="flex-1 bg-yellow-400 text-slate-900 py-4 rounded-2xl font-black text-center shadow-2xl border border-yellow-300" data-ga="click_kakao_chat">카톡 상담</a>
+        <a href="tel:0335622551" class="flex-1 bg-blue-700 text-white py-4 rounded-2xl font-black text-center shadow-2xl border border-blue-600" data-ga="cta_sticky_call">사무실 전화</a>
+        <a href="https://pf.kakao.com/_fxjxiQn/chat" target="_blank" rel="noopener" class="flex-1 bg-yellow-400 text-slate-900 py-4 rounded-2xl font-black text-center shadow-2xl border border-yellow-300" data-ga="cta_sticky_kakao">카톡 상담</a>
     </div>
 
     <script>
         /* =========================
-            ✅ GA4 트래킹 자동화
+            ✅ 고급 GA4 트래킹 자동화 (Funnel Analysis)
         ========================= */
         (function(){
-            function track(eventName){
+            // 1. 클릭 이벤트 트래킹 세분화
+            function trackClick(eventName){
                 try { 
-                    gtag('event', eventName); 
-                    console.log('GA4 Tracking:', eventName);
+                    gtag('event', eventName, { 'event_category': 'engagement' }); 
+                    console.log('GA4 Click Tracked:', eventName);
                 } catch(e) {}
             }
             document.querySelectorAll('[data-ga]').forEach(el=>{
                 el.addEventListener('click', ()=>{
                     const name = el.getAttribute('data-ga');
-                    if (name) track(name);
+                    if (name) trackClick(name);
                 });
             });
+
+            // 2. 스크롤 깊이 트래킹 (50%, 90% 도달 시)
+            let scrolled50 = false;
+            let scrolled90 = false;
+            
+            window.addEventListener('scroll', () => {
+                let scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+                
+                if (scrollPercent >= 50 && !scrolled50) {
+                    try { gtag('event', 'scroll_depth_50', { 'event_category': 'engagement', 'event_label': 'Reached 50%' }); } catch(e){}
+                    console.log('GA4 Scroll Tracked: 50%');
+                    scrolled50 = true;
+                }
+                
+                if (scrollPercent >= 90 && !scrolled90) {
+                    try { gtag('event', 'scroll_depth_90', { 'event_category': 'engagement', 'event_label': 'Reached 90%' }); } catch(e){}
+                    console.log('GA4 Scroll Tracked: 90% (Bottom)');
+                    scrolled90 = true;
+                }
+            }, { passive: true });
         })();
 
         /* =========================
@@ -817,7 +786,7 @@
             const introVideo = document.getElementById('intro-video');
             const skipBtn = document.getElementById('intro-skip-btn');
 
-            function hideIntro(setSeen){
+            function hideIntro(){
                 if (!introOverlay) return;
                 introOverlay.style.opacity = '0';
                 setTimeout(()=>{ introOverlay.style.display = 'none'; }, 600);
@@ -826,24 +795,20 @@
             window.addEventListener('load', function() {
                 if (introVideo && introOverlay) {
                     introVideo.playbackRate = 2.5; 
-                    introVideo.addEventListener('ended', ()=> hideIntro(false));
-                    setTimeout(()=> hideIntro(false), 1500); 
+                    introVideo.addEventListener('ended', ()=> hideIntro());
+                    setTimeout(()=> hideIntro(), 1500); 
                 }
-                
-                if (skipBtn){
-                    skipBtn.addEventListener('click', ()=> hideIntro(false));
-                }
+                if (skipBtn) skipBtn.addEventListener('click', ()=> hideIntro());
             });
         })();
 
         function loadVideo(container, videoId) {
             container.innerHTML = `<iframe class="w-full h-full" src="https://www.youtube.com/embed/${videoId}?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-            container.classList.remove('video-placeholder');
             container.onclick = null;
         }
 
         /* =========================
-            ✅ Portfolio 로직
+            ✅ Portfolio 로직 (전체 데이터 24건 복원)
         ========================= */
         let portfolioData = [
             { category: 'global', date: '2026.01', title: '강원대학교 글로컬 패스파인더 (상해/항주)', desc: '상해·항주 AI 첨단 기업 탐방 및 글로벌 해커톤 단독 기획·운영', link: 'https://indadady.github.io/260112_kangwon_univ/' },
@@ -873,7 +838,6 @@
         ];
 
         portfolioData.sort((a, b) => b.date.localeCompare(a.date));
-
         const catMap = { 'global': '글로벌/연수', 'public': '공공/지자체', 'school': '학교/교육', 'corp': '기업/MICE' };
         let currentFilter = 'all';
         let isShowingAll = false;
@@ -891,53 +855,29 @@
                             <span class="text-[11px] font-bold text-slate-400"><i class="far fa-calendar-alt"></i> ${item.date}</span>
                         </div>
                         <h4 class="font-black text-slate-900 text-sm md:text-base mb-2 leading-tight">${item.title}</h4>
-                        <p class="text-xs text-slate-500 leading-relaxed mb-4 line-clamp-2">${item.desc}</p>
+                        <p class="text-xs text-slate-500 leading-relaxed mb-4">${item.desc}</p>
                     </div>
-                    ${item.link ? `<a href="${item.link}" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-[11px] font-bold text-blue-600 hover:text-blue-800 transition mt-2" data-ga="click_portfolio_link"><i class="fas fa-link"></i> 상세 제안서 보기</a>` : ''}
+                    ${item.link ? `<a href="${item.link}" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-[11px] font-bold text-blue-600 hover:text-blue-800 transition mt-2" data-ga="click_portfolio_detail"><i class="fas fa-link"></i> 상세 제안서 보기</a>` : ''}
                 </div>
             `).join('');
 
-            const loadMoreBtn = document.getElementById('load-more-container');
-            if (filtered.length <= 9 || isShowingAll) {
-                loadMoreBtn.style.display = 'none';
-            } else {
-                loadMoreBtn.style.display = 'block';
-            }
+            document.getElementById('load-more-container').style.display = (filtered.length <= 9 || isShowingAll) ? 'none' : 'block';
         }
 
         window.filterPortfolio = (cat) => {
-            currentFilter = cat;
-            isShowingAll = false;
+            currentFilter = cat; isShowingAll = false;
             document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('bg-blue-600', 'text-white', 'shadow-lg');
-                btn.classList.add('bg-white', 'text-slate-500', 'border', 'border-slate-200');
+                btn.className = `filter-btn px-6 py-2 rounded-full text-[12px] font-black transition ${btn.dataset.filter === cat ? 'bg-blue-600 text-white shadow-lg' : 'bg-white text-slate-500 border border-slate-200 hover:bg-slate-50'}`;
             });
-            const activeBtn = document.querySelector(`[data-filter="${cat}"]`);
-            if(activeBtn) {
-                activeBtn.classList.remove('bg-white', 'text-slate-500', 'border');
-                activeBtn.classList.add('bg-blue-600', 'text-white', 'shadow-lg');
-            }
             renderPortfolio();
         };
 
-        window.showAllPortfolio = () => {
-            isShowingAll = true;
-            renderPortfolio();
-        };
+        window.showAllPortfolio = () => { isShowingAll = true; renderPortfolio(); };
 
-        const filters = [
-            { id: 'all', label: '전체실적' },
-            { id: 'global', label: '글로벌/연수' },
-            { id: 'public', label: '공공/지자체' },
-            { id: 'school', label: '학교/교육' },
-            { id: 'corp', label: '기업/MICE' }
-        ];
-
-        document.getElementById('filter-container').innerHTML = filters.map(f => `
-            <button onclick="filterPortfolio('${f.id}')" data-filter="${f.id}" class="filter-btn px-6 py-2 rounded-full text-[12px] font-black transition ${f.id === 'all' ? 'bg-blue-600 text-white shadow-lg' : 'bg-white text-slate-500 border border-slate-200 hover:bg-slate-50'}">
-                ${f.label}
-            </button>
-        `).join('');
+        document.getElementById('filter-container').innerHTML = [
+            { id: 'all', label: '전체실적' }, { id: 'global', label: '글로벌/연수' },
+            { id: 'public', label: '공공/지자체' }, { id: 'school', label: '학교/교육' }, { id: 'corp', label: '기업/MICE' }
+        ].map(f => `<button onclick="filterPortfolio('${f.id}')" data-filter="${f.id}" data-ga="click_filter_${f.id}" class="filter-btn px-6 py-2 rounded-full text-[12px] font-black transition ${f.id === 'all' ? 'bg-blue-600 text-white shadow-lg' : 'bg-white text-slate-500 border border-slate-200 hover:bg-slate-50'}">${f.label}</button>`).join('');
 
         renderPortfolio();
     </script>
