@@ -25,7 +25,6 @@
     <meta property="og:title" content="(주)투어메이커 - 데이터로 만드는 혁신적 여행" />
     <meta property="og:description" content="VIP를 위한 단 하나의 맞춤형 여정, 투어메이커의 기획력이면 가능합니다." />
     <meta property="og:url" content="https://tourmaker.kr/" />
-    <!-- 1200x630 권장 사이즈 강제 지정 (대표님이 주신 새 이미지 링크 적용) -->
     <meta property="og:image" content="https://blogger.googleusercontent.com/img/a/AVvXsEhPxG_ONo2BdFAGDNnn-pHIGJTrAq374YbqgwTTlyIZTP22kOWTDD_AyjKDNFPhsHg5t1Iq6zV0dL_NZIj4o97Kd0eWJYCv-NHhtIqme-Mp3htGhAdkqVv5NRU3Jc9TbdbvvVKrPslObA1oNABpgl12QtGwirC2QM5lcPCVoWm8pIbeKuZBbeDHAvpbKEQ" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -135,6 +134,24 @@
             color:white; font-size:1.25rem; transition: all 0.3s ease; z-index: 10;
         }
         .video-container:hover .play-btn{ background:white; color:#1e40af; transform: translate(-50%, -50%) scale(1.1); }
+        
+        /* Phone Mockup Style */
+        .phone-mockup {
+            border: 8px solid #1e293b;
+            border-radius: 2.5rem;
+            overflow: hidden;
+            position: relative;
+            background-color: #fff;
+            aspect-ratio: 9/19;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .phone-mockup::before {
+            content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+            width: 40%; height: 24px; background-color: #1e293b;
+            border-bottom-left-radius: 1rem; border-bottom-right-radius: 1rem; z-index: 20;
+        }
+        .phone-mockup:hover { transform: translateY(-10px) scale(1.02); }
     </style>
 </head>
 
@@ -155,7 +172,6 @@
     <nav class="bg-white/95 backdrop-blur-md fixed w-full z-50 border-b border-slate-100 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 h-16 flex justify-between items-center">
             <a href="#" class="flex items-center" aria-label="투어메이커 홈">
-                <!-- ✅ 지정된 투어메이커 로고 삽입 -->
                 <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHfgIX70O5k6Anuo0UgALIdaG9jSga9auHu3uyz0uEirylGPAJnjN_qQbvEGMUvPqUQf_g9FMNUHRxlDcUBf4vZ3Mpy4TnA9WxbmzWYK11gt2zuy_Irl4wctNFjcjLyPo0GPXV792o_J7L9guRMuDfeC1gy7USwywjYbECZgzcsHybuGRRAXAnO1eNmP8/s320/logo.png" alt="Tourmaker Logo" class="h-8 md:h-10 w-auto object-contain" loading="eager" decoding="async" />
             </a>
 
@@ -164,8 +180,8 @@
                     <a href="#about" class="hover:text-blue-600 transition">소개</a>
                     <a href="#flagship" class="hover:text-blue-600 transition">글로벌연수</a>
                     <a href="#specialty" class="hover:text-blue-600 transition">맞춤/가족여행</a>
+                    <a href="#demo" class="hover:text-blue-600 transition">스마트데모</a>
                     <a href="#portfolio" class="hover:text-blue-600 transition">수행실적</a>
-                    <a href="#contact" class="hover:text-blue-600 transition">문의</a>
                 </div>
 
                 <div class="flex items-center gap-3">
@@ -299,7 +315,7 @@
                         <p class="text-sm text-slate-400 leading-relaxed line-clamp-2">스마트 시티와 데이터 경제의 글로벌 허브. 투어메이커가 제안하는 기술 연수의 표본입니다.</p>
                     </div>
                 </div>
-                <!-- Macau (✅ 새로 반영된 영상 링크 적용) -->
+                <!-- Macau -->
                 <div class="group">
                     <div class="video-container shadow-2xl" onclick="loadVideo(this, '13dzs-9geyo')" role="button" aria-label="마카오 홍보영상 재생">
                         <img src="https://img.youtube.com/vi/13dzs-9geyo/hqdefault.jpg" alt="Macau Thumbnail" class="video-thumbnail" loading="lazy" decoding="async">
@@ -515,6 +531,85 @@
             </div>
         </section>
 
+        <!-- ✅ Smart Guidebook Showcase (업그레이드된 최신 시스템 강조로 변경) -->
+        <section id="demo" class="py-24 px-4 bg-slate-900 relative overflow-hidden">
+            <!-- 배경 데코레이션 -->
+            <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[100px] pointer-events-none"></div>
+            <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-cyan-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+            
+            <div class="max-w-6xl mx-auto relative z-10">
+                <div class="text-center mb-16">
+                    <span class="inline-block border border-blue-400/30 bg-blue-500/10 text-blue-300 font-bold text-xs tracking-widest uppercase px-4 py-1.5 rounded-full mb-4">
+                        <i class="fas fa-mobile-alt mr-1"></i> Travel Tech Showcase
+                    </span>
+                    <h2 class="text-3xl md:text-4xl font-black text-white mb-4">2026 최신 <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">스마트 가이드북</span> 라인업</h2>
+                    <p class="text-slate-400 max-w-2xl mx-auto text-base md:text-lg">
+                        투어메이커는 잃어버리기 쉬운 종이 일정표를 쓰지 않습니다.<br>
+                        현재 기관 및 학교에 제안/적용 중인 <strong>업그레이드된 맞춤형 모바일 시스템</strong>을 직접 체험해 보세요.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-10 lg:gap-14">
+                    <!-- Sample 1: 영월교육청 -->
+                    <div class="flex flex-col items-center group">
+                        <div class="phone-mockup w-full max-w-[280px] mb-6 cursor-pointer" onclick="window.open('https://indadady.github.io/261017_Shanghai/', '_blank')" data-ga="click_demo_yeongwol">
+                            <img src="https://tse4.mm.bing.net/th/id/OIP.KS-u8UmisbEvzqUH_EeFwwHaFR?w=474&h=379&c=7&p=0" class="w-full h-48 object-cover" alt="Shanghai" loading="lazy">
+                            <div class="p-5 text-center relative">
+                                <!-- ✅ 진행중/최신 모델 강조 배지 -->
+                                <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-[10px] font-black px-3 py-1 rounded-full shadow-lg whitespace-nowrap">
+                                    <i class="fas fa-star text-yellow-300 mr-1"></i> 2026 최신 적용 모델
+                                </div>
+                                <span class="text-[10px] font-black text-blue-600 bg-blue-50 px-2 py-1 rounded-md mb-3 inline-block mt-3">공공기관 해외연수</span>
+                                <h4 class="font-black text-slate-900 text-lg mb-2">영월교육지원청<br>상해·항주 진로캠프</h4>
+                                <p class="text-xs text-slate-500 line-clamp-2 mb-4">현지 AI 첨단 기업 탐방 및 역사 문화 시찰을 위한 고도화된 전용 디지털 일정표</p>
+                                <button class="w-full bg-slate-900 text-white text-sm font-bold py-3 rounded-xl hover:bg-blue-600 transition flex items-center justify-center gap-2">
+                                    <i class="fas fa-hand-pointer"></i> 시스템 체험하기
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sample 2: 진폐입찰 제주 -->
+                    <div class="flex flex-col items-center group">
+                        <div class="phone-mockup w-full max-w-[280px] mb-6 cursor-pointer transform md:-translate-y-6" onclick="window.open('https://indadady.github.io/260511_jeju/', '_blank')" data-ga="click_demo_jeju">
+                            <img src="https://tse3.mm.bing.net/th/id/OIP.2ulywzhjD9nX7aQJ1crd9gHaE7?w=474&h=379&c=7&p=0" class="w-full h-48 object-cover" alt="Jeju" loading="lazy">
+                            <div class="p-5 text-center relative">
+                                <!-- ✅ 입찰/제안 모델 강조 배지 -->
+                                <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-rose-500 text-white text-[10px] font-black px-3 py-1 rounded-full shadow-lg whitespace-nowrap">
+                                    <i class="fas fa-file-signature text-white mr-1"></i> 단독 제안 모델
+                                </div>
+                                <span class="text-[10px] font-black text-green-600 bg-green-50 px-2 py-1 rounded-md mb-3 inline-block mt-3">국내 프리미엄/복지</span>
+                                <h4 class="font-black text-slate-900 text-lg mb-2">강원랜드 희망재단<br>제주 힐링캠프</h4>
+                                <p class="text-xs text-slate-500 line-clamp-2 mb-4">어르신들도 쉽게 볼 수 있는 직관적 UI와 응급 연락망이 탑재된 입찰 제안 버전</p>
+                                <button class="w-full bg-slate-900 text-white text-sm font-bold py-3 rounded-xl hover:bg-rose-600 transition flex items-center justify-center gap-2">
+                                    <i class="fas fa-hand-pointer"></i> 시스템 체험하기
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sample 3: 문곡중 일본 -->
+                    <div class="flex flex-col items-center group">
+                        <div class="phone-mockup w-full max-w-[280px] mb-6 cursor-pointer" onclick="window.open('https://indadady.github.io/260512_Osaka/', '_blank')" data-ga="click_demo_mungok">
+                            <img src="https://tse1.mm.bing.net/th/id/OIP.vIFl9r9QMSporw7YRCA6_wHaE8?w=474&h=379&c=7&p=0" class="w-full h-48 object-cover" alt="Japan" loading="lazy">
+                            <div class="p-5 text-center relative">
+                                <!-- ✅ 진행중/학생특화 배지 -->
+                                <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-yellow-500 text-white text-[10px] font-black px-3 py-1 rounded-full shadow-lg whitespace-nowrap">
+                                    <i class="fas fa-user-graduate text-white mr-1"></i> 2026 학생 관리 특화
+                                </div>
+                                <span class="text-[10px] font-black text-yellow-600 bg-yellow-50 px-2 py-1 rounded-md mb-3 inline-block mt-3">학교 수학여행/테마</span>
+                                <h4 class="font-black text-slate-900 text-lg mb-2">문곡중학교<br>오사카 문화탐방</h4>
+                                <p class="text-xs text-slate-500 line-clamp-2 mb-4">학생 흥미 유발 디자인 및 선생님을 위한 실시간 학생 인솔 가이드 업그레이드 연동</p>
+                                <button class="w-full bg-slate-900 text-white text-sm font-bold py-3 rounded-xl hover:bg-yellow-500 transition flex items-center justify-center gap-2">
+                                    <i class="fas fa-hand-pointer"></i> 시스템 체험하기
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Leadership -->
         <section class="py-24 px-4 bg-white">
             <div class="max-w-6xl mx-auto">
@@ -715,7 +810,7 @@
         })();
 
         /* =========================
-            ✅ Intro Control (무조건 노출되도록 수정)
+            ✅ Intro Control
         ========================= */
         (function(){
             const introOverlay = document.getElementById('intro-overlay');
@@ -729,12 +824,10 @@
             }
 
             window.addEventListener('load', function() {
-                // 이탈률 방지를 위해 1.5초 내외로 빠르게 재생 후 숨김 처리합니다.
-                
                 if (introVideo && introOverlay) {
-                    introVideo.playbackRate = 2.5; // 재생 속도 2.5배속 (약 1.5초만에 완료되도록 조정)
+                    introVideo.playbackRate = 2.5; 
                     introVideo.addEventListener('ended', ()=> hideIntro(false));
-                    setTimeout(()=> hideIntro(false), 1500); // 최대 1.5초 후 무조건 숨김 (이탈 방지용 안전장치)
+                    setTimeout(()=> hideIntro(false), 1500); 
                 }
                 
                 if (skipBtn){
