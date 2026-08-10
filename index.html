@@ -29,15 +29,35 @@
     <meta property="og:title" content="(주)투어메이커 - 종합여행사 · 국내·해외" />
     <meta property="og:description" content="학교·관공서·단체 여행. 스마트 가이드와 단계별 행정·정산 증빙을 지원하는 디지털 여행사." />
     <meta property="og:url" content="https://tourmaker.kr/" />
-    <meta property="og:image" content="https://tourmaker.kr/og-thumb.jpg" />
-    <meta property="og:image:width" content="727" />
-    <meta property="og:image:height" content="358" />
+    <meta property="og:image" id="og-image" content="https://tourmaker.kr/logo_paper.jpg" />
+    <meta property="og:image:width" id="og-image-width" content="727" />
+    <meta property="og:image:height" id="og-image-height" content="358" />
 
     <!-- ✅ Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="(주)투어메이커 - 종합여행사 · 국내·해외" />
     <meta name="twitter:description" content="학교·관공서·단체. 스마트 가이드와 단계별 행정·정산 증빙." />
-    <meta name="twitter:image" content="https://tourmaker.kr/og-thumb.jpg" />
+    <meta name="twitter:image" id="twitter-image" content="https://tourmaker.kr/logo_paper.jpg" />
+
+    <!-- 카톡/OG 썸네일: 사진로고 3종 랜덤 (paper / building / bag) -->
+    <script>
+      (function () {
+        var thumbs = [
+          { url: 'https://tourmaker.kr/logo_paper.jpg', w: 727, h: 358 },
+          { url: 'https://tourmaker.kr/logo_building.png', w: 818, h: 659 },
+          { url: 'https://tourmaker.kr/logo_bag.png', w: 800, h: 737 }
+        ];
+        var pick = thumbs[Math.floor(Math.random() * thumbs.length)];
+        var og = document.getElementById('og-image');
+        var tw = document.getElementById('twitter-image');
+        var ow = document.getElementById('og-image-width');
+        var oh = document.getElementById('og-image-height');
+        if (og) og.setAttribute('content', pick.url);
+        if (tw) tw.setAttribute('content', pick.url);
+        if (ow) ow.setAttribute('content', String(pick.w));
+        if (oh) oh.setAttribute('content', String(pick.h));
+      })();
+    </script>
 
     <!-- ✅ Fonts/Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
