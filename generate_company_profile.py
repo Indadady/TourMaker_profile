@@ -12,7 +12,7 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.platypus import (
     SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle,
-    KeepTogether, HRFlowable, Image,
+    KeepTogether, HRFlowable, Image, PageBreak,
 )
 
 BASE = Path(__file__).resolve().parent
@@ -366,6 +366,8 @@ def build():
         ("Vision", "\"여행을 만드는 사람들, 투어메이커\" — 데이터 기반 분석과 로컬 전문성을 결합해 최적의 경험을 기획합니다."),
     ], s))
 
+    # 1페이지: 커버·로고·기업 개요 / 2페이지부터 핵심 인력
+    story.append(PageBreak())
     story.append(section_title(s, "2", "핵심 인력 (Key People)"))
     story.append(people_cards(s))
 
@@ -410,6 +412,8 @@ def build():
     ]:
         story.append(Paragraph(f"• {line}", s["bullet"]))
 
+    # 전략 상품까지 한 흐름으로 두고, 수행 실적은 새 페이지에서 여유 있게
+    story.append(PageBreak())
     story.append(section_title(s, "7", "주요 수행 실적 (Track Record)"))
     story.append(Paragraph(
         "스마트 가이드북 적용·완수 실적 중심. 홈페이지 포트폴리오(2026.09 기준)와 동기화.",
