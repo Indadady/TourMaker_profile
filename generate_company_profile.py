@@ -42,42 +42,43 @@ def fit_image(path, max_w, max_h):
 
 
 def styles():
+    common = dict(textColor=TEXT, encoding="utf-8")
     return {
         "h1": ParagraphStyle(
-            "h1", fontName="MalgunBold", fontSize=17, textColor=BRAND,
-            leading=26, spaceBefore=8, spaceAfter=10,
+            "h1", fontName="MalgunBold", fontSize=16, textColor=BRAND,
+            leading=24, spaceBefore=14, spaceAfter=8,
         ),
         "h2": ParagraphStyle(
-            "h2", fontName="MalgunBold", fontSize=14, textColor=TEXT,
-            leading=22, spaceBefore=8, spaceAfter=6,
+            "h2", fontName="MalgunBold", fontSize=13, textColor=TEXT,
+            leading=20, spaceBefore=10, spaceAfter=5,
         ),
         "body": ParagraphStyle(
-            "body", fontName="Malgun", fontSize=12.5, textColor=TEXT,
-            leading=20, spaceAfter=6,
+            "body", fontName="Malgun", fontSize=11.5, textColor=TEXT,
+            leading=18, spaceAfter=5,
         ),
         "body_b": ParagraphStyle(
-            "body_b", fontName="MalgunBold", fontSize=12.5, textColor=TEXT,
-            leading=20, spaceAfter=5,
-        ),
-        "small": ParagraphStyle(
-            "small", fontName="Malgun", fontSize=11.5, textColor=TEXT,
+            "body_b", fontName="MalgunBold", fontSize=11.5, textColor=TEXT,
             leading=18, spaceAfter=4,
         ),
+        "small": ParagraphStyle(
+            "small", fontName="Malgun", fontSize=10.5, textColor=TEXT,
+            leading=16, spaceAfter=3,
+        ),
         "bullet": ParagraphStyle(
-            "bullet", fontName="Malgun", fontSize=12, textColor=TEXT,
-            leading=19, leftIndent=10, spaceAfter=4,
+            "bullet", fontName="Malgun", fontSize=11, textColor=TEXT,
+            leading=17, leftIndent=10, spaceAfter=3,
         ),
         "card_t": ParagraphStyle(
-            "card_t", fontName="MalgunBold", fontSize=12.5, textColor=TEXT,
-            leading=19, spaceAfter=4,
+            "card_t", fontName="MalgunBold", fontSize=11.5, textColor=TEXT,
+            leading=17, spaceAfter=3,
         ),
         "card_d": ParagraphStyle(
-            "card_d", fontName="Malgun", fontSize=11.5, textColor=TEXT,
-            leading=18,
+            "card_d", fontName="Malgun", fontSize=10.5, textColor=TEXT,
+            leading=16,
         ),
         "step_tag": ParagraphStyle(
-            "step_tag", fontName="MalgunBold", fontSize=12, textColor=BRAND,
-            leading=17, spaceAfter=3,
+            "step_tag", fontName="MalgunBold", fontSize=11, textColor=BRAND,
+            leading=15, spaceAfter=2,
         ),
     }
 
@@ -240,7 +241,7 @@ def strength_grid(s):
 
 
 def digital_steps(s):
-    """Full-width stacked cards — each step stays unbroken across pages."""
+    """Full-width stacked cards (one column each) — stays inside margins."""
     steps = [
         ("STEP 01", "디지털 제안·견적",
          "학교·기관 맞춤 제안서·일정표를 웹으로 제공하고, 입찰·수의계약 제출용 PDF도 함께 생성합니다."),
@@ -251,6 +252,7 @@ def digital_steps(s):
     ]
     flow = []
     for tag, title, desc in steps:
+        # IMPORTANT: one cell per row (vertical stack), not three columns in one row
         box = Table(
             [
                 [Paragraph(tag, s["step_tag"])],
@@ -265,13 +267,13 @@ def digital_steps(s):
             ("BOX", (0, 0), (-1, -1), 1.2, BRAND),
             ("LEFTPADDING", (0, 0), (-1, -1), 12),
             ("RIGHTPADDING", (0, 0), (-1, -1), 12),
-            ("TOPPADDING", (0, 0), (-1, -1), 6),
-            ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
+            ("TOPPADDING", (0, 0), (-1, -1), 5),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 5),
             ("VALIGN", (0, 0), (-1, -1), "TOP"),
             ("TEXTCOLOR", (0, 0), (-1, -1), TEXT),
         ]))
-        flow.append(KeepTogether([box]))
-        flow.append(Spacer(1, 4 * mm))
+        flow.append(box)
+        flow.append(Spacer(1, 3.5 * mm))
     return flow[:-1]
 
 
@@ -321,7 +323,7 @@ def logo_section(s):
         "브랜드 컬러는 하늘·신뢰감을 담은 <b>시안 블루</b>와 가독성 중심의 <b>블랙</b>을 기본으로 합니다.",
         s["body"],
     ))
-    return [KeepTogether(parts)]
+    return parts
 
 
 def track_block(s, label, items):
@@ -344,8 +346,6 @@ def build():
         author="(주)투어메이커",
     )
 
-    # 번호 섹션은 페이지 경계에서 제목만 남는 일이 없도록
-    # 섹션 단위 PageBreak + KeepTogether로 구성한다.
     story = [Spacer(1, 42 * mm)]
 
     if LOGO_BRAND.exists():
@@ -354,88 +354,72 @@ def build():
         story.append(img)
         story.append(Spacer(1, 4 * mm))
 
-    # ----- 1. 기업 개요 -----
-    story.append(KeepTogether([
-        section_title(s, "1", "기업 개요 (Company Overview)"),
-        kv_table([
-            ("기업명", "(주)투어메이커 (TOURMAKER Corp.)"),
-            ("대표이사", "이재명 (CEO & Planning Director)"),
-            ("설립일", "2024년 4월 23일"),
-            ("사업자등록번호", "473-81-03183"),
-            ("관광사업등록", "제2024-000001호"),
-            ("소재지", "본사: 강원특별자치도 정선군 정선읍 봉양3길 22-10 3층<br/>지사: 강원특별자치도 태백시 (태백 사무소)"),
-            ("주요 사업", "국내·해외 여행업, 학교·관공서·단체 연수, MICE 기획, 스마트 가이드북·디지털 행정"),
-            ("Vision", "\"여행을 만드는 사람들, 투어메이커\" — 데이터 기반 분석과 로컬 전문성을 결합해 최적의 경험을 기획합니다."),
-        ], s),
-    ]))
+    story.append(section_title(s, "1", "기업 개요 (Company Overview)"))
+    story.append(kv_table([
+        ("기업명", "(주)투어메이커 (TOURMAKER Corp.)"),
+        ("대표이사", "이재명 (CEO & Planning Director)"),
+        ("설립일", "2024년 4월 23일"),
+        ("사업자등록번호", "473-81-03183"),
+        ("관광사업등록", "제2024-000001호"),
+        ("소재지", "본사: 강원특별자치도 정선군 정선읍 봉양3길 22-10 3층<br/>지사: 강원특별자치도 태백시 (태백 사무소)"),
+        ("주요 사업", "국내·해외 여행업, 학교·관공서·단체 연수, MICE 기획, 스마트 가이드북·디지털 행정"),
+        ("Vision", "\"여행을 만드는 사람들, 투어메이커\" — 데이터 기반 분석과 로컬 전문성을 결합해 최적의 경험을 기획합니다."),
+    ], s))
 
-    # ----- 2. 핵심 인력 -----
+    # 1페이지: 커버·로고·기업 개요 / 2페이지부터 핵심 인력
     story.append(PageBreak())
-    story.append(KeepTogether([
-        section_title(s, "2", "핵심 인력 (Key People)"),
-        people_cards(s),
-    ]))
+    story.append(section_title(s, "2", "핵심 인력 (Key People)"))
+    story.append(people_cards(s))
 
-    # ----- 3. 로고 스토리 -----
-    story.append(PageBreak())
     story.extend(logo_section(s))
 
-    # ----- 4. 핵심 경쟁력 -----
-    story.append(PageBreak())
-    story.append(KeepTogether([
-        section_title(s, "4", "핵심 경쟁력 (Competitiveness)"),
-        strength_grid(s),
-    ]))
+    story.append(section_title(s, "4", "핵심 경쟁력 (Competitiveness)"))
+    story.append(strength_grid(s))
 
-    # ----- 5. 디지털 운영 -----
-    story.append(PageBreak())
-    digital_block = [
-        section_title(s, "5", "3단계 디지털 운영 (Digital Operation)"),
-        Paragraph(
-            "종이 일정표 대신 URL로 공유하고, 행정·정산은 투어메이커 자체 디지털 프로세스로 관리합니다.",
-            s["body"],
-        ),
-        Spacer(1, 2 * mm),
-    ]
-    digital_block.extend(digital_steps(s))
-    digital_block.extend([
-        Spacer(1, 2 * mm),
-        Paragraph(
-            "대외 공개 데모: tourmaker.kr → 스마트 가이드북 체험 "
-            "(황지고 제주 · 고한중 오사카 · 태백해설사 · 춘천 힐링 등)",
-            s["body"],
-        ),
-    ])
-    story.extend(digital_block)
+    story.append(section_title(s, "5", "3단계 디지털 운영 (Digital Operation)"))
+    story.append(Paragraph(
+        "종이 일정표 대신 URL로 공유하고, 행정·정산은 투어메이커 자체 디지털 프로세스로 관리합니다.",
+        s["body"],
+    ))
+    story.append(Spacer(1, 2 * mm))
+    story.extend(digital_steps(s))
+    story.append(Spacer(1, 2 * mm))
+    story.append(Paragraph(
+        "대외 공개 데모: tourmaker.kr → 스마트 가이드북 체험 "
+        "(황지고 제주 · 고한중 오사카 · 태백해설사 · 춘천 힐링 등)",
+        s["body"],
+    ))
 
-    # ----- 6. 전략 상품 -----
-    story.append(PageBreak())
-    story.append(KeepTogether([
-        section_title(s, "6", "주요 전략 상품 (Strategic Focus)"),
-        Paragraph("<b>2026 강원대학교 글로컬 패스파인더</b>", s["body_b"]),
-        Paragraph(
-            "컨셉: 중국 AI 혁신 &amp; 글로벌 캠퍼스 현장 — 상해·항주 AI 첨단 기업 탐방 · 글로벌 해커톤",
-            s["body"],
-        ),
-        Paragraph("• 단순 견학이 아닌 실무형 기술 교육 및 프로젝트 수행", s["bullet"]),
-        Paragraph("• 현지 대학·기업 연계 심화 세션 (Deep Dive)", s["bullet"]),
-        Paragraph("• 모바일 최적화 스마트 가이드북으로 교육·현장 운영 일원화", s["bullet"]),
-        Spacer(1, 3 * mm),
-        Paragraph("<b>스마트 가이드북 (2026 라인업)</b>", s["body_b"]),
-        Paragraph("• 황지정보산업고 제주 3박4일 문화탐방 (학생 단체 · 당일 UI·지도 동선)", s["bullet"]),
-        Paragraph("• 고한중학교 오사카·교토·USJ 탐방 (청주 직항)", s["bullet"]),
-        Paragraph("• 태백해설사 1박2일 심화교육 (지질공원 현장답사)", s["bullet"]),
-        Paragraph("• 산소휴드림 실버카페 춘천 힐링 당일여행 (시니어 맞춤)", s["bullet"]),
-    ]))
+    story.append(section_title(s, "6", "주요 전략 상품 (Strategic Focus)"))
+    story.append(Paragraph("<b>2026 강원대학교 글로컬 패스파인더</b>", s["body_b"]))
+    story.append(Paragraph(
+        "컨셉: 중국 AI 혁신 &amp; 글로벌 캠퍼스 현장 — 상해·항주 AI 첨단 기업 탐방 · 글로벌 해커톤",
+        s["body"],
+    ))
+    for line in [
+        "단순 견학이 아닌 실무형 기술 교육 및 프로젝트 수행",
+        "현지 대학·기업 연계 심화 세션 (Deep Dive)",
+        "모바일 최적화 스마트 가이드북으로 교육·현장 운영 일원화",
+    ]:
+        story.append(Paragraph(f"• {line}", s["bullet"]))
 
-    # ----- 7. 수행 실적 (카테고리별 KeepTogether → 중간 절단 방지) -----
+    story.append(Paragraph("<b>스마트 가이드북 (2026 라인업)</b>", s["body_b"]))
+    for line in [
+        "황지정보산업고 제주 3박4일 문화탐방 (학생 단체 · 당일 UI·지도 동선)",
+        "고한중학교 오사카·교토·USJ 탐방 (청주 직항)",
+        "태백해설사 1박2일 심화교육 (지질공원 현장답사)",
+        "산소휴드림 실버카페 춘천 힐링 당일여행 (시니어 맞춤)",
+    ]:
+        story.append(Paragraph(f"• {line}", s["bullet"]))
+
+    # 전략 상품까지 한 흐름으로 두고, 수행 실적은 새 페이지에서 여유 있게
     story.append(PageBreak())
     story.append(section_title(s, "7", "주요 수행 실적 (Track Record)"))
     story.append(Paragraph(
         "스마트 가이드북 적용·완수 실적 중심. 홈페이지 포트폴리오(2026.09 기준)와 동기화.",
         s["small"],
     ))
-    story.append(Spacer(1, 3 * mm))
+    story.append(Spacer(1, 2 * mm))
 
     story.append(track_block(s, "2026 Smart Guidebook / 최근 수행", [
         "2026.09  산소휴드림 실버카페 춘천 힐링 당일여행",
@@ -449,7 +433,7 @@ def build():
         "2026.03  태백의용소방대 오사카 문화탐방",
         "2026.01  강원대학교 글로컬 패스파인더 (상해/항주)",
     ]))
-    story.append(Spacer(1, 5 * mm))
+    story.append(Spacer(1, 4 * mm))
 
     story.append(track_block(s, "Global / Tech — 해외 기술 연수", [
         "2025.01  데이터보안·활용 혁신융합 사업 싱가포르 기술연수 (강원대 등 5개 대학)",
@@ -458,7 +442,7 @@ def build():
         "2024.10  KAIST × NYU 교환학생 한국문화체험",
         "2024.07  강원대 지역지능화혁신 인재양성 상해 연수 (스마트시티)",
     ]))
-    story.append(Spacer(1, 5 * mm))
+    story.append(Spacer(1, 4 * mm))
 
     story.append(track_block(s, "Public Sector — 공공/지자체", [
         "2025.11  정선 시장활성화 사업단 제주 선진지 견학",
@@ -469,7 +453,7 @@ def build():
         "2024.06  정선군청 모범공무원 일본 북해도 연수",
         "2024.05  양양전통시장 벤치마킹 대행 용역",
     ]))
-    story.append(Spacer(1, 5 * mm))
+    story.append(Spacer(1, 4 * mm))
 
     story.append(track_block(s, "Education — 학교/교육기관", [
         "2025.12  함백고등학교 3학년 현장체험학습",
@@ -478,7 +462,7 @@ def build():
         "2025.07  영월 신천초등학교 필리핀 연수",
         "2024.09  태백 황지고등학교 제주도 수학여행",
     ]))
-    story.append(Spacer(1, 5 * mm))
+    story.append(Spacer(1, 4 * mm))
 
     story.append(track_block(s, "Corporate / MICE — 기업·행사", [
         "2025.11  강원랜드 협력사 서비스 우수직원 연수",
@@ -488,18 +472,17 @@ def build():
         "2025.05  정선 청소년수련관 해커톤 대회 행사 지원",
     ]))
 
-    # ----- 8. 문의 -----
-    story.append(PageBreak())
-    story.append(KeepTogether([
-        section_title(s, "8", "문의 (Contact)"),
-        kv_table([
-            ("대표전화", "033-562-2551"),
-            ("이메일", "이재명 대표 jmlojm@nate.com  /  조혁 이사 siriusjh85@naver.com"),
-            ("카카오톡", "pf.kakao.com/_fxjxiQn/chat"),
-            ("웹사이트", "https://tourmaker.kr/"),
-            ("서류·계약", "S2B·나라장터(G2B) 등록 · 서울보증보험 · 단계별 정산 증빙 지원"),
-        ], s),
-    ]))
+    story.append(Spacer(1, 6 * mm))
+    story.append(HRFlowable(width="100%", thickness=0.8, color=LINE))
+    story.append(Spacer(1, 3 * mm))
+    story.append(section_title(s, "8", "문의 (Contact)"))
+    story.append(kv_table([
+        ("대표전화", "033-562-2551"),
+        ("이메일", "이재명 대표 jmlojm@nate.com  /  조혁 이사 siriusjh85@naver.com"),
+        ("카카오톡", "pf.kakao.com/_fxjxiQn/chat"),
+        ("웹사이트", "https://tourmaker.kr/"),
+        ("서류·계약", "S2B·나라장터(G2B) 등록 · 서울보증보험 · 단계별 정산 증빙 지원"),
+    ], s))
 
     doc.build(story, onFirstPage=cover_first, onLaterPages=header_band)
     print(f"Wrote {OUT} ({OUT.stat().st_size} bytes)")
