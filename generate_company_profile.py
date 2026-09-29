@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-"""Generate TourMaker company introduction PDF (black text, 2026 data)."""
+"""Generate TourMaker company introduction PDF (readable black text, logo story)."""
 from pathlib import Path
 
-from reportlab.lib.colors import Color, HexColor, white, black
+from PIL import Image as PILImage
+from reportlab.lib.colors import HexColor, black, white
+from reportlab.lib.enums import TA_CENTER, TA_LEFT
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import mm
@@ -10,135 +12,129 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.platypus import (
     SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle,
-    KeepTogether, HRFlowable, ListFlowable, ListItem
+    KeepTogether, HRFlowable, Image,
 )
 
+BASE = Path(__file__).resolve().parent
 pdfmetrics.registerFont(TTFont("Malgun", r"C:\Windows\Fonts\malgun.ttf"))
 pdfmetrics.registerFont(TTFont("MalgunBold", r"C:\Windows\Fonts\malgunbd.ttf"))
 
 BRAND = HexColor("#1e40af")
 BRAND_DARK = HexColor("#0f172a")
-ACCENT = HexColor("#0ea5e9")
-LINE = HexColor("#e2e8f0")
+ACCENT = HexColor("#5ec8e8")
+LINE = HexColor("#94a3b8")
 SOFT = HexColor("#f8fafc")
-# 본문·제목 모두 검정에 가깝게 (가독성)
-TEXT = HexColor("#000000")
-MUTED = HexColor("#000000")  # 본문·푸터 모두 검정 (가독성)
+TEXT = black  # pure black for body
 
 PAGE_W, PAGE_H = A4
 MARGIN = 16 * mm
+CONTENT_W = PAGE_W - 2 * MARGIN
+OUT = BASE / "투어메이커_회사소개서.pdf"
+LOGO_BRAND = BASE / "logo_brand.png"
+LOGO_SYMBOL = BASE / "logo_symbol.png"
 
-OUT = Path(__file__).with_name("투어메이커_회사소개서.pdf")
+
+def fit_image(path, max_w, max_h):
+    im = PILImage.open(path)
+    w, h = im.size
+    scale = min(max_w / w, max_h / h)
+    return Image(str(path), width=w * scale, height=h * scale, hAlign="CENTER")
 
 
 def styles():
+    common = dict(textColor=TEXT, encoding="utf-8")
     return {
-        "cover_title": ParagraphStyle(
-            "cover_title", fontName="MalgunBold", fontSize=22, textColor=white,
-            leading=30, alignment=1, spaceAfter=4,
-        ),
-        "cover_sub": ParagraphStyle(
-            "cover_sub", fontName="Malgun", fontSize=10, textColor=HexColor("#dbeafe"),
-            leading=15, alignment=1,
-        ),
         "h1": ParagraphStyle(
-            "h1", fontName="MalgunBold", fontSize=13, textColor=BRAND,
-            leading=18, spaceBefore=10, spaceAfter=6,
+            "h1", fontName="MalgunBold", fontSize=16, textColor=BRAND,
+            leading=24, spaceBefore=14, spaceAfter=8,
         ),
         "h2": ParagraphStyle(
-            "h2", fontName="MalgunBold", fontSize=11, textColor=TEXT,
-            leading=15, spaceBefore=8, spaceAfter=4,
+            "h2", fontName="MalgunBold", fontSize=13, textColor=TEXT,
+            leading=20, spaceBefore=10, spaceAfter=5,
         ),
         "body": ParagraphStyle(
-            "body", fontName="Malgun", fontSize=9, textColor=TEXT,
-            leading=14, spaceAfter=3,
+            "body", fontName="Malgun", fontSize=11.5, textColor=TEXT,
+            leading=18, spaceAfter=5,
         ),
         "body_b": ParagraphStyle(
-            "body_b", fontName="MalgunBold", fontSize=9, textColor=TEXT,
-            leading=14, spaceAfter=2,
+            "body_b", fontName="MalgunBold", fontSize=11.5, textColor=TEXT,
+            leading=18, spaceAfter=4,
         ),
         "small": ParagraphStyle(
-            "small", fontName="Malgun", fontSize=8, textColor=MUTED,
-            leading=12, spaceAfter=2,
+            "small", fontName="Malgun", fontSize=10.5, textColor=TEXT,
+            leading=16, spaceAfter=3,
         ),
         "bullet": ParagraphStyle(
-            "bullet", fontName="Malgun", fontSize=8.5, textColor=TEXT,
-            leading=13, leftIndent=8,
-        ),
-        "footer": ParagraphStyle(
-            "footer", fontName="Malgun", fontSize=7.5, textColor=MUTED,
-            alignment=1, leading=10,
-        ),
-        "chip": ParagraphStyle(
-            "chip", fontName="MalgunBold", fontSize=8, textColor=BRAND,
-            leading=11, alignment=1,
+            "bullet", fontName="Malgun", fontSize=11, textColor=TEXT,
+            leading=17, leftIndent=10, spaceAfter=3,
         ),
         "card_t": ParagraphStyle(
-            "card_t", fontName="MalgunBold", fontSize=9, textColor=TEXT,
-            leading=12, spaceAfter=2,
+            "card_t", fontName="MalgunBold", fontSize=11.5, textColor=TEXT,
+            leading=17, spaceAfter=3,
         ),
         "card_d": ParagraphStyle(
-            "card_d", fontName="Malgun", fontSize=8, textColor=TEXT,
-            leading=11,
+            "card_d", fontName="Malgun", fontSize=10.5, textColor=TEXT,
+            leading=16,
+        ),
+        "step_tag": ParagraphStyle(
+            "step_tag", fontName="MalgunBold", fontSize=11, textColor=BRAND,
+            leading=15, spaceAfter=2,
         ),
     }
 
 
 def header_band(canvas, doc):
     canvas.saveState()
-    # top brand bar
     canvas.setFillColor(BRAND)
     canvas.rect(0, PAGE_H - 14 * mm, PAGE_W, 14 * mm, fill=1, stroke=0)
     canvas.setFillColor(white)
-    canvas.setFont("MalgunBold", 9)
+    canvas.setFont("MalgunBold", 10)
     canvas.drawString(MARGIN, PAGE_H - 9 * mm, "(주)투어메이커  회사소개서")
-    canvas.setFont("Malgun", 8)
+    canvas.setFont("Malgun", 9)
     canvas.drawRightString(PAGE_W - MARGIN, PAGE_H - 9 * mm, "tourmaker.kr  ·  2026")
-    # footer
     canvas.setStrokeColor(LINE)
-    canvas.setLineWidth(0.5)
+    canvas.setLineWidth(0.6)
     canvas.line(MARGIN, 12 * mm, PAGE_W - MARGIN, 12 * mm)
-    canvas.setFillColor(MUTED)
-    canvas.setFont("Malgun", 7)
+    canvas.setFillColor(TEXT)
+    canvas.setFont("Malgun", 8)
     canvas.drawString(MARGIN, 7 * mm, "Copyright © 2024–2026 Tourmaker Corp. All rights reserved.")
     canvas.drawRightString(PAGE_W - MARGIN, 7 * mm, f"{doc.page}")
     canvas.restoreState()
 
 
 def cover_first(canvas, doc):
-    """First page: cover hero + standard header/footer after content starts."""
     canvas.saveState()
-    # hero band
     canvas.setFillColor(BRAND_DARK)
-    canvas.rect(0, PAGE_H - 52 * mm, PAGE_W, 52 * mm, fill=1, stroke=0)
+    canvas.rect(0, PAGE_H - 58 * mm, PAGE_W, 58 * mm, fill=1, stroke=0)
     canvas.setFillColor(BRAND)
-    canvas.rect(0, PAGE_H - 52 * mm, PAGE_W, 3 * mm, fill=1, stroke=0)
+    canvas.rect(0, PAGE_H - 58 * mm, PAGE_W, 3.2 * mm, fill=1, stroke=0)
 
     canvas.setFillColor(ACCENT)
-    canvas.setFont("MalgunBold", 8)
-    canvas.drawCentredString(PAGE_W / 2, PAGE_H - 18 * mm, "종합여행업  ·  국내·해외  ·  S2B / G2B  ·  스마트 가이드북")
-
+    canvas.setFont("MalgunBold", 9)
+    canvas.drawCentredString(
+        PAGE_W / 2, PAGE_H - 16 * mm,
+        "종합여행업  ·  국내·해외  ·  S2B / G2B  ·  스마트 가이드북",
+    )
     canvas.setFillColor(white)
-    canvas.setFont("MalgunBold", 20)
+    canvas.setFont("MalgunBold", 22)
     canvas.drawCentredString(PAGE_W / 2, PAGE_H - 30 * mm, "(주)투어메이커  회사소개서")
-    canvas.setFont("Malgun", 10)
+    canvas.setFont("Malgun", 11)
     canvas.setFillColor(HexColor("#bfdbfe"))
     canvas.drawCentredString(
-        PAGE_W / 2, PAGE_H - 39 * mm,
-        "학교·관공서·단체 여행을 디지털로 운영합니다"
+        PAGE_W / 2, PAGE_H - 40 * mm,
+        "학교·관공서·단체 여행을 디지털로 운영합니다",
     )
-    canvas.setFont("Malgun", 8)
+    canvas.setFont("Malgun", 9)
     canvas.drawCentredString(
-        PAGE_W / 2, PAGE_H - 46 * mm,
-        "스마트 가이드 · 단계별 행정 · 정산 증빙  |  tourmaker.kr"
+        PAGE_W / 2, PAGE_H - 49 * mm,
+        "스마트 가이드 · 단계별 행정 · 정산 증빙  |  tourmaker.kr",
     )
 
-    # footer
     canvas.setStrokeColor(LINE)
-    canvas.setLineWidth(0.5)
+    canvas.setLineWidth(0.6)
     canvas.line(MARGIN, 12 * mm, PAGE_W - MARGIN, 12 * mm)
-    canvas.setFillColor(MUTED)
-    canvas.setFont("Malgun", 7)
+    canvas.setFillColor(TEXT)
+    canvas.setFont("Malgun", 8)
     canvas.drawString(MARGIN, 7 * mm, "Copyright © 2024–2026 Tourmaker Corp. All rights reserved.")
     canvas.drawRightString(PAGE_W - MARGIN, 7 * mm, f"{doc.page}")
     canvas.restoreState()
@@ -148,18 +144,38 @@ def section_title(s, n, title):
     return Paragraph(f"{n}. {title}", s["h1"])
 
 
+def card_box(paras, width):
+    inner = Table([[p] for p in paras], colWidths=[width])
+    inner.setStyle(TableStyle([
+        ("BACKGROUND", (0, 0), (-1, -1), SOFT),
+        ("BOX", (0, 0), (-1, -1), 0.8, LINE),
+        ("LEFTPADDING", (0, 0), (-1, -1), 9),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 9),
+        ("TOPPADDING", (0, 0), (-1, -1), 6),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
+        ("VALIGN", (0, 0), (-1, -1), "TOP"),
+        ("TEXTCOLOR", (0, 0), (-1, -1), TEXT),
+    ]))
+    return inner
+
+
 def kv_table(rows, s):
-    data = [[Paragraph(f"<b>{k}</b>", s["body_b"]), Paragraph(v, s["body"])] for k, v in rows]
-    t = Table(data, colWidths=[38 * mm, 140 * mm])
+    label_w = 44 * mm
+    value_w = CONTENT_W - label_w
+    data = [
+        [Paragraph(f"<b>{k}</b>", s["body_b"]), Paragraph(v, s["body"])]
+        for k, v in rows
+    ]
+    t = Table(data, colWidths=[label_w, value_w], hAlign="LEFT")
     t.setStyle(TableStyle([
         ("VALIGN", (0, 0), (-1, -1), "TOP"),
-        ("LEFTPADDING", (0, 0), (-1, -1), 2),
-        ("RIGHTPADDING", (0, 0), (-1, -1), 2),
-        ("TOPPADDING", (0, 0), (-1, -1), 2),
-        ("BOTTOMPADDING", (0, 0), (-1, -1), 2),
+        ("LEFTPADDING", (0, 0), (-1, -1), 7),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 7),
+        ("TOPPADDING", (0, 0), (-1, -1), 6),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
         ("BACKGROUND", (0, 0), (0, -1), SOFT),
-        ("BOX", (0, 0), (-1, -1), 0.4, LINE),
-        ("INNERGRID", (0, 0), (-1, -1), 0.3, LINE),
+        ("BOX", (0, 0), (-1, -1), 0.8, LINE),
+        ("INNERGRID", (0, 0), (-1, -1), 0.5, LINE),
         ("TEXTCOLOR", (0, 0), (-1, -1), TEXT),
     ]))
     return t
@@ -171,42 +187,27 @@ def people_cards(s):
         ("허나연  실장", "Admin / Finance", "운영 총괄 · 행정 · 정산 · S2B/G2B", "010-5066-0433", "계약·예약 관리 총괄"),
         ("조 혁  이사", "Partnership / Field", "대외협력 · 파트너십 · 현장 운영", "010-4249-4026", "국내외 로컬 네트워크"),
     ]
-    cells = []
+    col = CONTENT_W / 3
+    cards = []
     for name, role, desc, phone, note in people:
-        cell = [
+        role_style = ParagraphStyle(
+            f"role_{id(name)}", fontName="MalgunBold", fontSize=10,
+            textColor=BRAND, leading=14, spaceAfter=2,
+        )
+        cards.append(card_box([
             Paragraph(name, s["card_t"]),
-            Paragraph(role, ParagraphStyle("r", parent=s["small"], textColor=BRAND, fontName="MalgunBold")),
+            Paragraph(role, role_style),
             Paragraph(desc, s["card_d"]),
             Paragraph(f"☎ {phone}", s["card_d"]),
             Paragraph(note, s["small"]),
-        ]
-        cells.append(cell)
-    # flatten to single paragraphs joined
-    def pack(paras):
-        story = []
-        for p in paras:
-            story.append(p)
-        return story
-
-    # Use nested mini tables as cards
-    cards = []
-    for cell in cells:
-        inner = Table([[c] for c in cell], colWidths=[56 * mm])
-        inner.setStyle(TableStyle([
-            ("BACKGROUND", (0, 0), (-1, -1), SOFT),
-            ("BOX", (0, 0), (-1, -1), 0.6, LINE),
-            ("LEFTPADDING", (0, 0), (-1, -1), 6),
-            ("RIGHTPADDING", (0, 0), (-1, -1), 6),
-            ("TOPPADDING", (0, 0), (-1, -1), 3),
-            ("BOTTOMPADDING", (0, 0), (-1, -1), 3),
-            ("VALIGN", (0, 0), (-1, -1), "TOP"),
-        ]))
-        cards.append(inner)
-    t = Table([cards], colWidths=[58 * mm, 58 * mm, 58 * mm])
+        ], col - 6))
+    t = Table([cards], colWidths=[col, col, col], hAlign="LEFT")
     t.setStyle(TableStyle([
         ("VALIGN", (0, 0), (-1, -1), "TOP"),
-        ("LEFTPADDING", (0, 0), (-1, -1), 2),
-        ("RIGHTPADDING", (0, 0), (-1, -1), 2),
+        ("LEFTPADDING", (0, 0), (-1, -1), 3),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 3),
+        ("TOPPADDING", (0, 0), (-1, -1), 0),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 0),
     ]))
     return t
 
@@ -218,66 +219,111 @@ def strength_grid(s):
         ("지역 전문성", "강원랜드·정선군·교육청 등 로컬 네트워크와 현지 파트너십."),
         ("스마트 가이드북", "모바일 일정·항공·호텔·동선·비상연락망을 URL 하나로 공유."),
     ]
-    rows = []
-    pair = []
+    col = CONTENT_W / 2
+    rows, pair = [], []
     for title, desc in items:
-        box = Table([[
+        pair.append(card_box([
             Paragraph(f"<b>{title}</b>", s["card_t"]),
-        ], [
             Paragraph(desc, s["card_d"]),
-        ]], colWidths=[86 * mm])
-        box.setStyle(TableStyle([
-            ("BACKGROUND", (0, 0), (-1, -1), SOFT),
-            ("BOX", (0, 0), (-1, -1), 0.5, LINE),
-            ("LEFTPADDING", (0, 0), (-1, -1), 7),
-            ("RIGHTPADDING", (0, 0), (-1, -1), 7),
-            ("TOPPADDING", (0, 0), (-1, -1), 5),
-            ("BOTTOMPADDING", (0, 0), (-1, -1), 5),
-        ]))
-        pair.append(box)
+        ], col - 6))
         if len(pair) == 2:
             rows.append(pair)
             pair = []
-    t = Table(rows, colWidths=[90 * mm, 90 * mm])
+    t = Table(rows, colWidths=[col, col], hAlign="LEFT")
     t.setStyle(TableStyle([
         ("VALIGN", (0, 0), (-1, -1), "TOP"),
-        ("LEFTPADDING", (0, 0), (-1, -1), 2),
-        ("RIGHTPADDING", (0, 0), (-1, -1), 2),
-        ("TOPPADDING", (0, 0), (-1, -1), 2),
-        ("BOTTOMPADDING", (0, 0), (-1, -1), 2),
+        ("LEFTPADDING", (0, 0), (-1, -1), 3),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 3),
+        ("TOPPADDING", (0, 0), (-1, -1), 3),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 3),
     ]))
     return t
 
 
 def digital_steps(s):
+    """Full-width stacked cards (one column each) — stays inside margins."""
     steps = [
-        ("STEP 01", "디지털 제안·견적", "학교·기관 맞춤 제안서·일정표 웹 제공. 입찰·수의계약용 PDF 동시 생성."),
-        ("STEP 02", "스마트 가이드북", "항공·호텔·일정·입국카드·실시간 정보를 모바일 한 페이지에 공유."),
-        ("STEP 03", "디지털 행정·정산", "선금·착수·완료·최종 단계별 공문·계약·정산·증빙을 제출 형식으로 통합."),
+        ("STEP 01", "디지털 제안·견적",
+         "학교·기관 맞춤 제안서·일정표를 웹으로 제공하고, 입찰·수의계약 제출용 PDF도 함께 생성합니다."),
+        ("STEP 02", "스마트 가이드북",
+         "항공·호텔·일정·입국카드·실시간 정보를 모바일 한 페이지에 담아 학부모·학생·인솔교사가 동일 정보를 공유합니다."),
+        ("STEP 03", "디지털 행정·정산",
+         "선금·착수·완료·최종 등 계약 단계에 맞춰 공문·계약·정산·증빙을 학교·기관 제출 형식으로 통합합니다."),
     ]
-    cells = []
+    flow = []
     for tag, title, desc in steps:
-        box = Table([[
-            Paragraph(f'<font color="#1e40af"><b>{tag}</b></font>', s["small"]),
-            Paragraph(f"<b>{title}</b>", s["card_t"]),
-            Paragraph(desc, s["card_d"]),
-        ]], colWidths=[56 * mm])
+        # IMPORTANT: one cell per row (vertical stack), not three columns in one row
+        box = Table(
+            [
+                [Paragraph(tag, s["step_tag"])],
+                [Paragraph(f"<b>{title}</b>", s["card_t"])],
+                [Paragraph(desc, s["card_d"])],
+            ],
+            colWidths=[CONTENT_W],
+            hAlign="LEFT",
+        )
         box.setStyle(TableStyle([
             ("BACKGROUND", (0, 0), (-1, -1), SOFT),
-            ("BOX", (0, 0), (-1, -1), 0.6, BRAND),
-            ("LEFTPADDING", (0, 0), (-1, -1), 6),
-            ("RIGHTPADDING", (0, 0), (-1, -1), 6),
-            ("TOPPADDING", (0, 0), (-1, -1), 4),
-            ("BOTTOMPADDING", (0, 0), (-1, -1), 4),
+            ("BOX", (0, 0), (-1, -1), 1.2, BRAND),
+            ("LEFTPADDING", (0, 0), (-1, -1), 12),
+            ("RIGHTPADDING", (0, 0), (-1, -1), 12),
+            ("TOPPADDING", (0, 0), (-1, -1), 5),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 5),
+            ("VALIGN", (0, 0), (-1, -1), "TOP"),
+            ("TEXTCOLOR", (0, 0), (-1, -1), TEXT),
         ]))
-        cells.append(box)
-    t = Table([cells], colWidths=[58 * mm, 58 * mm, 58 * mm])
-    t.setStyle(TableStyle([
-        ("VALIGN", (0, 0), (-1, -1), "TOP"),
-        ("LEFTPADDING", (0, 0), (-1, -1), 2),
-        ("RIGHTPADDING", (0, 0), (-1, -1), 2),
-    ]))
-    return t
+        flow.append(box)
+        flow.append(Spacer(1, 3.5 * mm))
+    return flow[:-1]
+
+
+def logo_section(s):
+    parts = [section_title(s, "3", "브랜드 아이덴티티 · 로고 스토리")]
+
+    cells = []
+    if LOGO_BRAND.exists():
+        cells.append(fit_image(LOGO_BRAND, 100 * mm, 44 * mm))
+    if LOGO_SYMBOL.exists():
+        cells.append(fit_image(LOGO_SYMBOL, 48 * mm, 28 * mm))
+
+    if len(cells) == 2:
+        left_w = 115 * mm
+        right_w = CONTENT_W - left_w
+        row = Table([[cells[0], cells[1]]], colWidths=[left_w, right_w], hAlign="LEFT")
+        row.setStyle(TableStyle([
+            ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+            ("ALIGN", (0, 0), (0, 0), "CENTER"),
+            ("ALIGN", (1, 0), (1, 0), "CENTER"),
+            ("BACKGROUND", (0, 0), (-1, -1), SOFT),
+            ("BOX", (0, 0), (-1, -1), 0.8, LINE),
+            ("TOPPADDING", (0, 0), (-1, -1), 10),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 10),
+            ("LEFTPADDING", (0, 0), (-1, -1), 8),
+            ("RIGHTPADDING", (0, 0), (-1, -1), 8),
+        ]))
+        parts.append(row)
+    elif cells:
+        parts.append(cells[0])
+
+    parts.append(Spacer(1, 4 * mm))
+    parts.append(Paragraph(
+        "TOUR MAKER의 <b>TO</b>를 활용해, 여행 중 마음에 드는 상품을 겟하는 "
+        "<b>트렌디한 헤어스타일의 웃는 얼굴(관광객)</b>을 표현한 로고입니다. "
+        "워드마크와 함께 쓰거나, 심볼만 단독·워터마크로도 사용할 수 있습니다.",
+        s["body"],
+    ))
+    parts.append(Paragraph("<b>심볼이 담은 의미</b>", s["body_b"]))
+    for line in [
+        "T / 비행기 / 여행 — 여행업의 출발과 이동을 형상화",
+        "O / 상품 — 투어메이커가 만드는 여행 상품",
+        "곡선(미소) — 웃는 얼굴로 고객(관광객·소비자)의 만족을 상징",
+    ]:
+        parts.append(Paragraph(f"• {line}", s["bullet"]))
+    parts.append(Paragraph(
+        "브랜드 컬러는 하늘·신뢰감을 담은 <b>시안 블루</b>와 가독성 중심의 <b>블랙</b>을 기본으로 합니다.",
+        s["body"],
+    ))
+    return parts
 
 
 def track_block(s, label, items):
@@ -294,15 +340,20 @@ def build():
         pagesize=A4,
         leftMargin=MARGIN,
         rightMargin=MARGIN,
-        topMargin=56 * mm,  # room for cover on p1; adjusted per page via onPage
+        topMargin=20 * mm,
         bottomMargin=18 * mm,
         title="(주)투어메이커 회사소개서",
         author="(주)투어메이커",
     )
 
-    story = []
+    story = [Spacer(1, 42 * mm)]
 
-    # ===== 1. Overview =====
+    if LOGO_BRAND.exists():
+        img = fit_image(LOGO_BRAND, 90 * mm, 40 * mm)
+        img.hAlign = "CENTER"
+        story.append(img)
+        story.append(Spacer(1, 4 * mm))
+
     story.append(section_title(s, "1", "기업 개요 (Company Overview)"))
     story.append(kv_table([
         ("기업명", "(주)투어메이커 (TOURMAKER Corp.)"),
@@ -318,25 +369,31 @@ def build():
     story.append(section_title(s, "2", "핵심 인력 (Key People)"))
     story.append(people_cards(s))
 
-    story.append(section_title(s, "3", "핵심 경쟁력 (Competitiveness)"))
+    story.extend(logo_section(s))
+
+    story.append(section_title(s, "4", "핵심 경쟁력 (Competitiveness)"))
     story.append(strength_grid(s))
 
-    story.append(section_title(s, "4", "3단계 디지털 운영 (Digital Operation)"))
+    story.append(section_title(s, "5", "3단계 디지털 운영 (Digital Operation)"))
     story.append(Paragraph(
         "종이 일정표 대신 URL로 공유하고, 행정·정산은 투어메이커 자체 디지털 프로세스로 관리합니다.",
         s["body"],
     ))
-    story.append(Spacer(1, 3 * mm))
-    story.append(digital_steps(s))
+    story.append(Spacer(1, 2 * mm))
+    story.extend(digital_steps(s))
     story.append(Spacer(1, 2 * mm))
     story.append(Paragraph(
-        "대외 공개 데모: tourmaker.kr → 스마트 가이드북 체험 (황지고 제주 · 고한중 오사카 · 태백해설사 · 춘천 힐링 등)",
-        s["small"],
+        "대외 공개 데모: tourmaker.kr → 스마트 가이드북 체험 "
+        "(황지고 제주 · 고한중 오사카 · 태백해설사 · 춘천 힐링 등)",
+        s["body"],
     ))
 
-    story.append(section_title(s, "5", "주요 전략 상품 (Strategic Focus)"))
+    story.append(section_title(s, "6", "주요 전략 상품 (Strategic Focus)"))
     story.append(Paragraph("<b>2026 강원대학교 글로컬 패스파인더</b>", s["body_b"]))
-    story.append(Paragraph("컨셉: 중국 AI 혁신 &amp; 글로벌 캠퍼스 현장 — 상해·항주 AI 첨단 기업 탐방 · 글로벌 해커톤", s["body"]))
+    story.append(Paragraph(
+        "컨셉: 중국 AI 혁신 &amp; 글로벌 캠퍼스 현장 — 상해·항주 AI 첨단 기업 탐방 · 글로벌 해커톤",
+        s["body"],
+    ))
     for line in [
         "단순 견학이 아닌 실무형 기술 교육 및 프로젝트 수행",
         "현지 대학·기업 연계 심화 세션 (Deep Dive)",
@@ -353,8 +410,7 @@ def build():
     ]:
         story.append(Paragraph(f"• {line}", s["bullet"]))
 
-    # ===== Track record =====
-    story.append(section_title(s, "6", "주요 수행 실적 (Track Record)"))
+    story.append(section_title(s, "7", "주요 수행 실적 (Track Record)"))
     story.append(Paragraph(
         "스마트 가이드북 적용·완수 실적 중심. 홈페이지 포트폴리오(2026.09 기준)와 동기화.",
         s["small"],
@@ -373,7 +429,7 @@ def build():
         "2026.03  태백의용소방대 오사카 문화탐방",
         "2026.01  강원대학교 글로컬 패스파인더 (상해/항주)",
     ]))
-    story.append(Spacer(1, 3 * mm))
+    story.append(Spacer(1, 4 * mm))
 
     story.append(track_block(s, "Global / Tech — 해외 기술 연수", [
         "2025.01  데이터보안·활용 혁신융합 사업 싱가포르 기술연수 (강원대 등 5개 대학)",
@@ -382,7 +438,7 @@ def build():
         "2024.10  KAIST × NYU 교환학생 한국문화체험",
         "2024.07  강원대 지역지능화혁신 인재양성 상해 연수 (스마트시티)",
     ]))
-    story.append(Spacer(1, 3 * mm))
+    story.append(Spacer(1, 4 * mm))
 
     story.append(track_block(s, "Public Sector — 공공/지자체", [
         "2025.11  정선 시장활성화 사업단 제주 선진지 견학",
@@ -393,7 +449,7 @@ def build():
         "2024.06  정선군청 모범공무원 일본 북해도 연수",
         "2024.05  양양전통시장 벤치마킹 대행 용역",
     ]))
-    story.append(Spacer(1, 3 * mm))
+    story.append(Spacer(1, 4 * mm))
 
     story.append(track_block(s, "Education — 학교/교육기관", [
         "2025.12  함백고등학교 3학년 현장체험학습",
@@ -402,7 +458,7 @@ def build():
         "2025.07  영월 신천초등학교 필리핀 연수",
         "2024.09  태백 황지고등학교 제주도 수학여행",
     ]))
-    story.append(Spacer(1, 3 * mm))
+    story.append(Spacer(1, 4 * mm))
 
     story.append(track_block(s, "Corporate / MICE — 기업·행사", [
         "2025.11  강원랜드 협력사 서비스 우수직원 연수",
@@ -413,9 +469,9 @@ def build():
     ]))
 
     story.append(Spacer(1, 6 * mm))
-    story.append(HRFlowable(width="100%", thickness=0.6, color=LINE))
+    story.append(HRFlowable(width="100%", thickness=0.8, color=LINE))
     story.append(Spacer(1, 3 * mm))
-    story.append(section_title(s, "7", "문의 (Contact)"))
+    story.append(section_title(s, "8", "문의 (Contact)"))
     story.append(kv_table([
         ("대표전화", "033-562-2551"),
         ("이메일", "이재명 대표 jmlojm@nate.com  /  조혁 이사 siriusjh85@naver.com"),
@@ -424,17 +480,7 @@ def build():
         ("서류·계약", "S2B·나라장터(G2B) 등록 · 서울보증보험 · 단계별 정산 증빙 지원"),
     ], s))
 
-    def on_first(c, d):
-        cover_first(c, d)
-
-    def on_later(c, d):
-        header_band(c, d)
-
-    # Two-pass: page 1 uses cover, rest use header.
-    # SimpleDocTemplate supports onFirstPage / onLaterPages.
-    # Adjust top margin: first page needs space below cover (52mm), later pages 18mm header.
-    doc.topMargin = 56 * mm
-    doc.build(story, onFirstPage=on_first, onLaterPages=on_later)
+    doc.build(story, onFirstPage=cover_first, onLaterPages=header_band)
     print(f"Wrote {OUT} ({OUT.stat().st_size} bytes)")
 
 
