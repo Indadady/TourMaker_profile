@@ -385,7 +385,7 @@ def build():
     story.extend(digital_steps(s))
     story.append(Spacer(1, 2 * mm))
     story.append(Paragraph(
-        "대외 공개 데모: tourmaker.kr → 스마트 가이드북 체험 "
+        "대외 공개 데모: tourmaker.kr → 스마트 가이드북 샘플 3건만 공개 (황지고 제주 · 고한중 오사카 · 태백해설사). 그 외는 상담 시 안내
         "(황지고 제주 · 고한중 오사카 · 태백해설사 · 춘천 힐링 등)",
         s["body"],
     ))
