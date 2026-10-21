@@ -835,10 +835,11 @@
             const hitKey = 'tm_hit_tourmaker_' + slug;
             const cacheKey = 'tm_cnt_tourmaker_' + slug;
             const alreadyHit = sessionStorage.getItem(hitKey);
-            // 1400: GA4 조회수 "1.4천". 페이지 제목 "TOURMAKER Unified Portal", 2026-01-01~10-21.
-            // ANCHOR는 이 값을 넣기 직전 실시간 카운터. 이후 방문만 1,400 위에 더한다.
-            const BASELINE = 1400;
-            const ANCHOR = 3;
+            // 254: GA4 활성 사용자. 홈페이지 제목 "(주)투어메이커 - 데이터로 만드는 혁신적 여행"
+            // 2026-01-01부터 제목을 바꾼 2026-05-24 전까지. 업무포탈 조회수 1.4천은 포함하지 않는다.
+            // ANCHOR는 이 값을 넣기 직전 실시간 카운터. 이후 방문만 254 위에 더한다.
+            const BASELINE = 254;
+            const ANCHOR = 5;
             function show(n) {
                 const extra = Math.max(0, Number(n) - ANCHOR);
                 el.textContent = (BASELINE + extra).toLocaleString();
