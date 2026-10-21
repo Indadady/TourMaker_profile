@@ -194,9 +194,6 @@
                     <a href="https://pf.kakao.com/_fxjxiQn/chat" target="_blank" rel="noopener" class="bg-yellow-400 hover:bg-yellow-500 text-slate-900 px-4 py-2 rounded-lg text-sm font-bold transition flex items-center gap-2 shadow-sm" data-ga="cta_nav_kakao" aria-label="카카오톡 상담">
                         <i class="fas fa-comment"></i> <span class="hidden sm:inline">상담톡</span>
                     </a>
-                    <span class="inline-flex items-center gap-1.5 text-[11px] md:text-xs font-bold text-slate-600 bg-slate-50 border border-slate-200 px-2.5 py-1.5 rounded-lg whitespace-nowrap" title="홈페이지 방문자">
-                        방문자수 <strong id="tm-home-view-count" class="text-blue-700 tabular-nums">...</strong>
-                    </span>
                 </div>
             </div>
         </div>
@@ -828,53 +825,6 @@
     </div>
 
     <script>
-        (function initHomeViewCounter() {
-            const el = document.getElementById('tm-home-view-count');
-            if (!el) return;
-            const slug = 'homepage';
-            const hitKey = 'tm_hit_tourmaker_' + slug;
-            const cacheKey = 'tm_cnt_tourmaker_' + slug;
-            const alreadyHit = sessionStorage.getItem(hitKey);
-            // 254: GA4 활성 사용자. 홈페이지 제목 "(주)투어메이커 - 데이터로 만드는 혁신적 여행"
-            // 2026-01-01부터 제목을 바꾼 2026-05-24 전까지. 업무포탈 조회수 1.4천은 포함하지 않는다.
-            // ANCHOR는 이 값을 넣기 직전 실시간 카운터. 이후 방문만 254 위에 더한다.
-            const BASELINE = 254;
-            const ANCHOR = 5;
-            function show(n) {
-                const extra = Math.max(0, Number(n) - ANCHOR);
-                el.textContent = (BASELINE + extra).toLocaleString();
-            }
-            (async function () {
-                let count = null;
-                try {
-                    const mode = alreadyHit ? 'get' : 'hit';
-                    const res = await fetch('https://abacus.jasoncameron.dev/' + mode + '/tourmaker.kr/' + slug);
-                    if (res.ok) {
-                        const data = await res.json();
-                        if (typeof data.value === 'number') {
-                            count = data.value;
-                            sessionStorage.setItem(hitKey, '1');
-                        }
-                    }
-                } catch (e) {}
-                if (count === null || count === 0) {
-                    try {
-                        const res2 = await fetch('https://tally.yuki.sh/hits/tourmaker/' + slug + '.json' + (alreadyHit ? '?mode=read' : ''));
-                        if (res2.ok) {
-                            const data2 = await res2.json();
-                            if (typeof data2.visit === 'number') {
-                                count = data2.visit;
-                                sessionStorage.setItem(hitKey, '1');
-                            }
-                        }
-                    } catch (e) {}
-                }
-                if (count !== null && count > 0) localStorage.setItem(cacheKey, String(count));
-                else count = parseInt(localStorage.getItem(cacheKey) || '1', 10) || 1;
-                show(count);
-            })();
-        })();
-
         /* =========================
             ✅ 고급 GA4 트래킹 자동화 (Funnel Analysis)
         ========================= */
